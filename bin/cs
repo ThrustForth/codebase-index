@@ -1,0 +1,4 @@
+#!/usr/bin/env fish
+cd /home/mine/projects/codebase-index
+source .venv/bin/activate
+python index_repo.py --search $argv[1] --ext $argv[2] --top $argv[3]

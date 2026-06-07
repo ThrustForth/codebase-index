@@ -1,0 +1,195 @@
+#!/usr/bin/env bash
+
+# ------------------------------------------------------------
+# Codebase Index – One‑command installer
+# ------------------------------------------------------------
+# This script performs the following steps:
+#   1. Ensure Python 3.10+ (uses uv if needed)
+#   2. Create a virtual environment at .venv
+#   3. Install exact dependencies from requirements.txt
+#   4. Install Ollama if missing (brew on macOS, curl script on Linux)
+#   5. Pull the nomic‑embed‑text model
+#   6. Install a tiny wrapper command (cs) in ~/bin
+#   7. Add ~/bin to fish_user_paths (Fish shell)
+#   8. Run an initial indexing pass
+#   9. Verify the installation
+#   10. Provide colored output and graceful error handling
+# ------------------------------------------------------------
+
+set -euo pipefail
+
+# Colors for output
+RED="\033[0;31m"
+GREEN="\033[0;32m"
+YELLOW="\033[0;33m"
+NC="\033[0m"
+
+info() { echo -e "${YELLOW}[+] $*${NC}"; }
+success() { echo -e "${GREEN}[*] $*${NC}"; }
+error() { echo -e "${RED}[!] $*${NC}"; }
+
+# Helper to check command existence
+command_exists() { command -v "$1" >/dev/null 2>&1; }
+
+# Ensure bc is available for version comparison
+if ! command_exists bc; then
+  error "bc is required for version comparison but not installed"
+  exit 1
+fi
+command_exists() { command -v "$1" >/dev/null 2>&1; }
+
+# ------------------------------------------------------------
+# 1️⃣ Ensure Python 3.10+ (use uv if necessary)
+# ------------------------------------------------------------
+if command_exists python3; then
+  PYVER=$(python3 -c 'import sys; print("%d.%d" % sys.version_info[:2])')
+else
+  PYVER="0"
+fi
+
+if [[ $(echo "$PYVER < 3.10" | bc -l) == 1 ]]; then
+  info "Python >=3.10 not found – attempting to install via uv"
+  if ! command_exists uv; then
+    # Install uv (cross‑platform installer)
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+    export PATH="$HOME/.local/bin:$PATH"
+  fi
+  uv python install 3.10
+  PYTHON=python3
+else
+  PYTHON=python3
+fi
+
+# ------------------------------------------------------------
+# 2️⃣ Create virtual environment (.venv)
+# ------------------------------------------------------------
+if [ -d ".venv" ]; then
+  success ".venv already exists – reusing"
+else
+  info "Creating virtual environment at .venv"
+  $PYTHON -m venv .venv
+  success "Virtual environment created"
+fi
+
+# Activate venv for the remainder of the script
+source .venv/bin/activate
+
+# ------------------------------------------------------------
+# 3️⃣ Install exact dependencies from requirements.txt
+# ------------------------------------------------------------
+info "Installing dependencies from requirements.txt"
+# Pin to the exact versions declared in the file
+pip install --quiet -r requirements.txt
+success "Dependencies installed"
+
+# ------------------------------------------------------------
+# 4️⃣ Ensure Ollama is installed
+# ------------------------------------------------------------
+if command_exists ollama; then
+  success "Ollama already installed"
+else
+  info "Ollama not found – installing"
+  OS=$(uname)
+  if [ "$OS" = "Darwin" ]; then
+    # macOS – use Homebrew
+    if ! command_exists brew; then
+      error "Homebrew not found – please install Homebrew first"
+      exit 1
+    fi
+    brew install ollama
+  else
+    # Assume Linux – use the official install script
+    curl -fsSL https://ollama.com/install.sh | sh
+  fi
+  # Re‑source profile to make ollama available in the current session
+  hash -r || true
+  if ! command_exists ollama; then
+    error "Ollama installation failed"
+    exit 1
+  fi
+  success "Ollama installed"
+fi
+
+# ------------------------------------------------------------
+# 5️⃣ Pull the nomic‑embed‑text model
+# ------------------------------------------------------------
+info "Pulling Ollama model: nomic-embed-text"
+if ollama list | grep -q "nomic-embed-text"; then
+  success "Model already present"
+else
+  ollama pull nomic-embed-text
+  success "Model pulled"
+fi
+
+# ------------------------------------------------------------
+# 6️⃣ Install cs wrapper in ~/bin
+# ------------------------------------------------------------
+BIN_DIR="$HOME/bin"
+WRAPPER="$BIN_DIR/cs"
+mkdir -p "$BIN_DIR"
+cat > "$WRAPPER" <<'EOF'
+#!/usr/bin/env bash
+# Simple wrapper to search the codebase index
+# Usage: cs "<query>" "<extension>" "<top>"
+cd /home/mine/projects/codebase-index || exit 1
+source .venv/bin/activate
+python index_repo.py --search "$1" --ext "$2" --top "${3:-5}"
+EOF
+chmod +x "$WRAPPER"
+success "Wrapper command installed at $WRAPPER"
+
+# ------------------------------------------------------------
+# 7️⃣ Add ~/bin to fish_user_paths (Fish shell)
+# ------------------------------------------------------------
+FISH_CONFIG="$HOME/.config/fish/config.fish"
+if command_exists fish; then
+  if ! grep -q "set -U fish_user_paths" "$FISH_CONFIG"; then
+    echo "set -U fish_user_paths \$HOME/bin" >> "$FISH_CONFIG"
+    success "Added ~/bin to fish_user_paths in $FISH_CONFIG"
+  else
+    # Ensure our path is present in the universal variable
+    fish -c "set -U fish_user_paths" | grep -q "$HOME/bin" || fish -c "set -U fish_user_paths \$HOME/bin"
+    success "~/bin already in fish_user_paths"
+  fi
+else
+  info "Fish shell not detected – skipping fish_user_paths configuration"
+fi
+
+# ------------------------------------------------------------
+# 8️⃣ Run initial indexing (only .py files, top 100)
+# ------------------------------------------------------------
+info "Running initial indexing (Python files only)"
+python index_repo.py --index --ext .py --top 100
+success "Initial indexing complete"
+
+# ------------------------------------------------------------
+# 9️⃣ Verify installation
+# ------------------------------------------------------------
+info "Verifying installation"
+# Verify .venv exists
+[ -d ".venv" ] && success ".venv directory exists"
+# Verify packages
+REQUIRED_PKGS=(lancedb ollama GitPython)
+for pkg in "${REQUIRED_PKGS[@]}"; do
+  if pip show "$pkg" >/dev/null 2>&1; then
+    success "Package $pkg is installed"
+  else
+    error "Package $pkg NOT installed"
+  fi
+done
+# Verify Ollama model
+if ollama list | grep -q "nomic-embed-text"; then
+  success "Ollama model nomic-embed-text available"
+else
+  error "Ollama model nomic-embed-text missing"
+fi
+# Verify db directory
+if [ -d "db" ]; then
+  success "Database directory 'db' exists"
+else
+  error "Database directory 'db' missing"
+fi
+
+success "Installation completed successfully!"
+
+# End of installer
