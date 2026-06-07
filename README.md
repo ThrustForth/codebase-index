@@ -1,5 +1,5 @@
 # Codebase Indexer
-
+This was tested along side the Walmart Code Puppy AI wrapper and I am using OpenRouter as the model but you can use any model. LMK if you get it working on any other "Wrapper"
 A local, **Git‑style** codebase indexer powered by **LanceDB** (purely local vector store) and **Ollama** embeddings.
 
 ## Features
