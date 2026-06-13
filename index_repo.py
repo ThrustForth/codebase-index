@@ -216,6 +216,13 @@ def build_index(root: Path) -> None:
 # ---------------------------------------------------------------------------
 def search_codebase(query: str, top_k: int = 5, db_path: str = "db", file_ext: str = None, path_pattern: str = None, line_start: int = None, line_end: int = None) -> List[Dict[str, Any]]:
     """Search the index for code snippets matching the query."""
+    # Basic parameter validation
+    if not isinstance(query, str):
+        raise TypeError("query must be a string")
+    if not isinstance(top_k, int) or top_k <= 0:
+        raise ValueError("top_k must be a positive integer")
+    if not isinstance(db_path, str):
+        raise TypeError("db_path must be a string")
     db = lancedb.connect(str(db_path))
     tbl_name = "codebase"
 
