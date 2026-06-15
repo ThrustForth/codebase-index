@@ -1,0 +1,54 @@
+#!/usr/bin/env fish
+# cs-brain: Brain AI + OpenRouter coordinated search for Code Puppy
+
+set task $argv[1]
+set ext $argv[2]
+set top_k $argv[3]
+
+if test -z "$task"
+    echo "Usage: cs-brain <query> <extension> <top_k>"
+    echo "Example: cs-brain ollama .py 3"
+    exit 1
+end
+
+if test -z "$ext"
+    set ext ".py"
+end
+
+if test -z "$top_k"
+    set top_k "3"
+end
+
+cd ~/projects/codebase-index
+
+# Phase 1: OpenRouter fast generation
+echo "🚀 Starting coordinated workflow for: $task"
+echo "📍 Phase 1: OpenRouter fast generation"
+set initial_code (python3 ./index_repo.py --search "$task" --ext "$ext" --top "$top_k")
+echo "   ✅ Initial code generated ($(string length "$initial_code") chars)"
+
+# Phase 2: Brain deep analysis (using temp file for prompt)
+echo "🧠 Brain: Starting deep analysis"
+set brain_prompt_file "/tmp/brain_prompt_$task.txt"
+printf "Analyze this code for: %s\n\nCODE:\n%s\n\nProvide:\n1. Technical critique (bugs, edge cases, performance)\n2. Architecture improvements\n3. Security concerns\n4. Better alternatives" "$task" "$initial_code" > "$brain_prompt_file"
+
+set brain_critique (~/projects/brain-ai/brain_ai/run_brain_task.fish < "$brain_prompt_file")
+echo "   ✅ Brain analysis complete ($(string length "$brain_critique") chars)"
+
+# Phase 3: Refinement
+echo "🔄 Refining with Brain's critique"
+set refinement_file "/tmp/brain_refine_$task.txt"
+printf "Improve this code based on Brain AI's critique:\n\nTASK: %s\n\nORIGINAL CODE:\n%s\n\nBRAIN'S CRITIQUE:\n%s\n\nGenerate improved code that addresses all critique points." "$task" "$initial_code" "$brain_critique" > "$refinement_file"
+
+set refined_code (python3 ./index_repo.py --search "$refinement_file" --ext "$ext" --top 1)
+echo "   ✅ Refinement complete ($(string length "$refined_code") chars)"
+
+# Phase 4: Output
+echo "✅ Workflow complete"
+echo "============================================================"
+echo "FINAL RESULT:"
+echo "============================================================"
+echo "$refined_code"
+
+# Cleanup
+rm -f "$brain_prompt_file" "$refinement_file"

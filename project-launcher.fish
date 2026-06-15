@@ -35,6 +35,28 @@ if [ "$choice" = "$i" ]; then
     fi
     mkdir -p "~/$new_name"
     cd "~/$new_name"
+
+    # Launch Code Puppy with Brain AI intro
+    echo ""
+    echo "🧠💻 Code Puppy + Brain AI Auto-Integration Enabled"
+    echo "===================================================="
+    echo ""
+    echo "Every prompt automatically uses Brain+OpenRouter coordination:"
+    echo "  • OpenRouter generates fast (5s)"
+    echo "  • Brain AI analyzes deeply (30-60s)"
+    echo "  • Brain critiques → OpenRouter refines → Better code"
+    echo ""
+    echo "Usage in Code Puppy:"
+    echo "  bp <your prompt>"
+    echo ""
+    echo "Examples:"
+    echo "  bp ollama .py 3"
+    echo "  bp 'add error handling to JSON parser'"
+    echo "  bp 'how to implement caching' .rs 2"
+    echo ""
+    echo "===================================================="
+    echo ""
+
     uvx code-puppy -i
 else
     if [ -z "${dir_map[$choice]}" ]; then
@@ -48,6 +70,27 @@ else
         echo "Indexing codebase with LanceDB+Ollama..."
         ./venv/bin/python index_repo.py --index
     fi
+
+    # Launch Code Puppy with Brain AI intro
+    echo ""
+    echo "🧠💻 Code Puppy + Brain AI Auto-Integration Enabled"
+    echo "===================================================="
+    echo ""
+    echo "Every prompt automatically uses Brain+OpenRouter coordination:"
+    echo "  • OpenRouter generates fast (5s)"
+    echo "  • Brain AI analyzes deeply (30-60s)"
+    echo "  • Brain critiques → OpenRouter refines → Better code"
+    echo ""
+    echo "Usage in Code Puppy:"
+    echo "  bp <your prompt>"
+    echo ""
+    echo "Examples:"
+    echo "  bp ollama .py 3"
+    echo "  bp 'add error handling to JSON parser'"
+    echo "  bp 'how to implement caching' .rs 2"
+    echo ""
+    echo "===================================================="
+    echo ""
 
     uvx code-puppy -i
 fi

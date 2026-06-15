@@ -1,0 +1,21 @@
+#!/usr/bin/env fish
+set prompt $argv
+
+if test -z "$prompt"
+    echo "Usage: bp <your prompt>"
+    exit 0
+end
+
+cd /home/mine/projects/codebase-index
+
+echo "🧠💻 Code Puppy + Brain AI (Auto-Coordinated)"
+echo "📍 Query: $prompt"
+
+echo "⚡️ Phase 1: OpenRouter fast generation (5s)..."
+set initial_code (/home/mine/projects/codebase-index/venv/bin/python3 ./index_repo.py --search "$prompt" --ext ".py" --top 3)
+set initial_len (string length "$initial_code")
+echo "   ✅ Generated $initial_len chars"
+
+echo "🧠 Phase 2: Brain AI deep analysis (30-60s)..."
+set analysis_prompt "Analyze this code for: $prompt. Provide technical critique, architecture improvements, security concerns, and better alternatives."
+set brain_critique (/home/mine/projects/brain-ai/venv/bin/python3 -c "import sys; sys.path.insert(0, \"/home/mine/projects/brain-ai\"); from brain_ai.brain_ai_crew import run_task; print(run_task(sys.argv[1]))" "$analysis_prompt")

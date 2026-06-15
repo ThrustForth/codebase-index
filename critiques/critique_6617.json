@@ -1,0 +1,5 @@
+{
+  "query": "search for SQL injection",
+  "critique": "Error running Ollama critique: Command '['ollama', 'run', 'phi3', '-']' timed out after 30 seconds",
+  "results_snippet": "[search.py:1-39]\\n# search.py\nfrom __future__ import annotations\nfrom index_repo import search_codebase as _search_codebase\nfrom typing import List, Dict, Any\n\ndef search_codebase(query: str, top_k: i..."
+}
