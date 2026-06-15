@@ -60,6 +60,21 @@ For multi-step tasks, state a brief plan:
 
 Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
 
+## 5. Shell Compatibility
+- Detect user's shell (Fish, Bash, Zsh) automatically
+- Match the shell - don't assume Bash
+- Fish users need Fish functions, not bash scripts
+
+## 6. Python Setup
+- Always use venv (not .venv)
+- Activate before running Python commands
+- Check Python version >= 3.10
+
+## 7. Auto-Indexing Context
+- This project auto-indexes with LanceDB+Ollama before Code Puppy starts
+- Use `cs <query> <ext> <top>` for semantic search
+- Don't create duplicate indexing logic - use existing `cs` command
+
 ---
 
 **These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
