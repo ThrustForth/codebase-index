@@ -84,17 +84,39 @@ cs api .rs 10      # Search for api in Rust files, top 10 results
 python index_cli.py --index
 ```
 
-### Search (alternative)
+### Search (CLI)
 ```bash
 python index_cli.py --search "how to parse json"
 ```
 
-Or programmatically:
+### NEW: Hybrid Search (keyword + semantic)
+```bash
+# Adjust keyword vs semantic weights (defaults: 0.3 keyword, 0.7 semantic)
+python index_cli.py --search "parse json" --keyword-weight 0.5 --semantic-weight 0.5
+
+# Pure keyword search (exact matches)
+python index_cli.py --search "function_name" --keyword-weight 1.0 --semantic-weight 0.0
+
+# Pure semantic search (conceptual matches)
+python index_cli.py --search "handle authentication" --keyword-weight 0.0 --semantic-weight 1.0
+```
+
+### Programmatic usage
 ```python
 from search import search_codebase
+
+# Default hybrid search
 results = search_codebase("parse json", top_k=5)
+
+# Custom weights for keyword vs semantic
+results = search_codebase("parse json", top_k=5, keyword_weight=0.5, semantic_weight=0.5)
+
+# Get formatted DCI context for LLM injection
+context = search_codebase("parse json", top_k=5, as_dci=True)
+
 for r in results:
-    print(r['type'], r['path'], r['snippet'][:120])
+    print(r['path'], r['start_line'], '-', r['end_line'])
+    print(r['content'][:120])
 ```
 
 ## Integration with Code Puppy + Brain AI

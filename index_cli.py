@@ -1,4 +1,4 @@
-# index_repo.py
+# index_cli.py
 from __future__ import annotations
 
 import argparse
@@ -165,6 +165,8 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description="Local codebase indexer using LanceDB + Ollama.")
     parser.add_argument("--index", action="store_true", help="Build/rebuild the index.")
     parser.add_argument("--search", nargs="+", metavar="QUERY", help="Search the index.")
+    parser.add_argument("--keyword-weight", type=float, default=0.3, help="Weight for keyword matching (0.0-1.0)")
+    parser.add_argument("--semantic-weight", type=float, default=0.7, help="Weight for semantic similarity (0.0-1.0)")
     parser.add_argument("--verbose", action="store_true", help="Verbose output.")
     parser.add_argument("--dry-run", action="store_true", help="Print what would be done, without doing it.")
 
