@@ -17,6 +17,7 @@ import numpy as np
 from pydantic import Field
 
 import lancedb
+from validation import ensure_str, ensure_positive_int
 import ollama
 
 # Default Ollama model for embeddings

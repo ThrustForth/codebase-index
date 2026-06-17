@@ -1,0 +1,157 @@
+{
+  "/home/mine/projects/codebase-index/add.py": {
+    "hash": "543b802c75e798fe8be27d1150e636d5",
+    "size": 80,
+    "modified": "2026-06-06T23:26:42.248674"
+  },
+  "/home/mine/projects/codebase-index/index_cli.py": {
+    "hash": "08c2a5e9fe35d05275f35f5668e8253d",
+    "size": 5588,
+    "modified": "2026-06-14T21:53:58.445649"
+  },
+  "/home/mine/projects/codebase-index/index_repo-valid.py": {
+    "hash": "2a1da39b08f88774c9a87ca293f98e1e",
+    "size": 686,
+    "modified": "2026-06-14T21:58:25.437640"
+  },
+  "/home/mine/projects/codebase-index/search.py": {
+    "hash": "dc09dc9e2604cdd47c2d7ad6d13449dd",
+    "size": 1536,
+    "modified": "2026-06-14T21:58:25.437734"
+  },
+  "/home/mine/projects/codebase-index/coverage_report_viewer.py": {
+    "hash": "f8e5fc29644459a459205a3b4e851e6f",
+    "size": 3077,
+    "modified": "2026-06-15T07:13:01.755832"
+  },
+  "/home/mine/projects/codebase-index/pytest_coverage_runner.py": {
+    "hash": "03e2195c8ce963ca854266af44ccf855",
+    "size": 967,
+    "modified": "2026-06-15T07:20:22.307766"
+  },
+  "/home/mine/projects/codebase-index/test_generator.py": {
+    "hash": "9db5719db6196d122c1ad601d8497b49",
+    "size": 4282,
+    "modified": "2026-06-15T07:34:38.164403"
+  },
+  "/home/mine/projects/codebase-index/sample_module.py": {
+    "hash": "365791cb1091617128867d3635e4a725",
+    "size": 512,
+    "modified": "2026-06-15T07:34:43.935837"
+  },
+  "/home/mine/projects/codebase-index/untested_code_finder.py": {
+    "hash": "69aa9e8e3f08d5371ea02b83bdaa2a7c",
+    "size": 5591,
+    "modified": "2026-06-15T07:46:11.509309"
+  },
+  "/home/mine/projects/codebase-index/test_code_puppy_tool.py": {
+    "hash": "cce7252344ab088581cde375e6859f55",
+    "size": 3184,
+    "modified": "2026-06-15T08:07:23.566219"
+  },
+  "/home/mine/projects/codebase-index/auto_test_runner.py": {
+    "hash": "2942b9bb5fdc8c48bc757062cce76519",
+    "size": 1881,
+    "modified": "2026-06-15T08:17:51.971057"
+  },
+  "/home/mine/projects/codebase-index/code_puppy_brain.py": {
+    "hash": "6a7738c02a50b07eb0eb26b8d3f30ad3",
+    "size": 2035,
+    "modified": "2026-06-15T08:58:37.055390"
+  },
+  "/home/mine/projects/codebase-index/project_map_tool.py": {
+    "hash": "2b0794093d5aa436d7a753af8cc76667",
+    "size": 5069,
+    "modified": "2026-06-16T01:25:34.340230"
+  },
+  "/home/mine/projects/codebase-index/run_brain_task.py": {
+    "hash": "58345d41100681d7efd5c8fda5b88552",
+    "size": 656,
+    "modified": "2026-06-16T04:08:57.379417"
+  },
+  "/home/mine/projects/codebase-index/code_puppy_tool.py": {
+    "hash": "8e57bafa23c46154cfc337cda11f9c43",
+    "size": 9978,
+    "modified": "2026-06-17T10:44:59.192653"
+  },
+  "/home/mine/projects/codebase-index/code_puppy_with_index.py": {
+    "hash": "327b52a04ead4d8b18ad86839a5b8035",
+    "size": 5112,
+    "modified": "2026-06-16T07:21:18.798923"
+  },
+  "/home/mine/projects/codebase-index/cp_tool.py": {
+    "hash": "3ff901c4c0a63d43a4ca3dea564c6dad",
+    "size": 687,
+    "modified": "2026-06-16T07:57:03.879044"
+  },
+  "/home/mine/projects/codebase-index/test_error_log.py": {
+    "hash": "a5629aa9767260f33d7f60ced61cb668",
+    "size": 1205,
+    "modified": "2026-06-16T21:22:15.743633"
+  },
+  "/home/mine/projects/codebase-index/generate_dashboard.py": {
+    "hash": "73d0327005c49d29799f9c0e71128155",
+    "size": 7111,
+    "modified": "2026-06-16T21:54:55.151909"
+  },
+  "/home/mine/projects/codebase-index/brain_ai_wrapper.py": {
+    "hash": "0d6830998620a1e8826948a2adb45eff",
+    "size": 21255,
+    "modified": "2026-06-17T10:02:23.290580"
+  },
+  "/home/mine/projects/codebase-index/parse.py": {
+    "hash": "ef1bc4af3f2c75570065987a8fcb3fda",
+    "size": 1838,
+    "modified": "2026-06-17T05:52:06.706064"
+  },
+  "/home/mine/projects/codebase-index/index_repo.py": {
+    "hash": "b96e0ad5236831834c879300b91f7cc9",
+    "size": 12099,
+    "modified": "2026-06-17T05:53:05.603069"
+  },
+  "/home/mine/projects/codebase-index/benchmark_scorer.py": {
+    "hash": "8601cf23422cae64655b05291cf32fd6",
+    "size": 3348,
+    "modified": "2026-06-17T06:53:50.629588"
+  },
+  "/home/mine/projects/codebase-index/brain_coordinator.py": {
+    "hash": "e99132db0cc727507ea45e6f956f230e",
+    "size": 11207,
+    "modified": "2026-06-17T09:19:29.261723"
+  },
+  "/home/mine/projects/codebase-index/validation.py": {
+    "hash": "d1d6ddffd9fe287cbc7ab75a0c9652b3",
+    "size": 865,
+    "modified": "2026-06-17T10:46:45.572000"
+  },
+  "/home/mine/projects/codebase-index/security_search.py": {
+    "hash": "aae5c4ae028dc963c6f9317f66d075b7",
+    "size": 4730,
+    "modified": "2026-06-17T10:25:31.791128"
+  },
+  "/home/mine/projects/codebase-index/brain_modes/brain_mode_manager.py": {
+    "hash": "faa8dded9cc4f3a1b941a3ae239b9ec1",
+    "size": 3327,
+    "modified": "2026-06-15T23:50:10.464569"
+  },
+  "/home/mine/projects/codebase-index/brain_modes/brain_mode_m3_dreamer.py": {
+    "hash": "72c59288efc0fc930b6b48f1086ee5f9",
+    "size": 3796,
+    "modified": "2026-06-15T23:50:52.937582"
+  },
+  "/home/mine/projects/codebase-index/brain_modes/brain_mode_m2_mapper.py": {
+    "hash": "722fea84453969a51d9d02caaae317c0",
+    "size": 6617,
+    "modified": "2026-06-16T00:34:51.741630"
+  },
+  "/home/mine/projects/codebase-index/brain_modes/hybrid_router.py": {
+    "hash": "02b3164b1c0262aca29fc1e6574be45e",
+    "size": 2293,
+    "modified": "2026-06-16T02:06:01.626696"
+  },
+  "/home/mine/projects/codebase-index/dashboard/app.py": {
+    "hash": "b43dc64de4e71aa842ecf14d8fce5f29",
+    "size": 4560,
+    "modified": "2026-06-16T22:24:07.075557"
+  }
+}

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Codebase Dashboard</title>
+<style>
+  body {font-family: Arial, sans-serif; margin:0; padding:0; background:#f5f5f5;}
+  #container {display:flex; width:100%; height:100vh;}
+  #sidebar {width:300px; background:#2c3e50; color:#ecf0f1; padding:10px; box-sizing:border-box;}
+  #content {flex:1; padding:20px; overflow:auto; background:#fff;}
+  .event {cursor:pointer; padding:8px; margin:4px 0; border-left:4px solid #3498db; background:#fff; color:#1a1a2e; border-radius:4px;}
+  .event:hover {background:#eaf2f8;}
+  .event .tag-badge {font-size:0.8em; padding:2px 6px; margin-right:8px; border-radius:4px; color:#fff;}
+  .tag-critique {background:#2ecc71;}
+  .tag-runtime_error {background:#e74c3c;}
+  .tag-ollama_timeout {background:#f1c40f;}
+  .tag-recent_change {background:#3498db;}
+  .tag-monitoring {background:#9b59b6;}
+  .tag-other {background:#95a5a6;}
+  #detail {margin-top:20px; padding:10px; border:1px solid #ccc; background:#fafafa; white-space:pre-wrap;}
+  #counter {font-weight:bold; margin-bottom:10px; color:#3498db;}
+  #chart {width:100%; height:200px;}
+  .error-state {color:#e74c3c; font-weight:bold;}
+  #filter-container {margin-bottom:10px;}
+</style>
+</head>
+<body>
+<div id='container'>
+  <div id='sidebar'>
+    <h2>Events</h2>
+    <div id='counter'></div>
+    <div id='filter-container'>
+      <select id='tag-filter'>
+        <option value='all'>All events</option>
+        <option value='critique'>Critique</option>
+        <option value='runtime_error'>Error</option>
+        <option value='ollama_timeout'>Timeout</option>
+        <option value='recent_change'>Change</option>
+        <option value='monitoring'>Monitoring</option>
+        <option value='other'>Other</option>
+      </select>
+    </div>
+    <div id='event-list'></div>
+  </div>
+  <div id='content'>
+    <h2>Event Detail</h2>
+    <div id='detail'></div>
+    <canvas id='chart'></canvas>
+  </div>
+</div>
+<script src='https://cdn.jsdelivr.net/npm/chart.js'></script>
+<script>
+let chartInstance=null;
+let allEvents=[]; // master list of events
+let visibleEvents=[]; // filtered view
+
+async function loadEventsFromServer() {
+  const resp = await fetch('/events');
+  const payload = await resp.json();
+  const events = payload.events || [];
+  const meta = payload.meta || {};
+  allEvents = events;
+  document.getElementById('counter').textContent = `Total: ${events.length} | parsed: ${meta.parsed_events || 0} | skipped: ${meta.skipped_files || 0}`;
+  applyFilter(); // renders all, updates chart, resets detail
+}
+
+// Complete re-render cycle for filter change
+function applyFilter() {
+  const selectedTag = document.getElementById('tag-filter').value;
+  if (selectedTag === 'all') {
+    visibleEvents = allEvents.slice(); // full copy
+  } else {
+    visibleEvents = allEvents.filter(ev => ev.tag === selectedTag);
+  }
+  renderEventsList(visibleEvents);
+  renderChart(visibleEvents);
+  clearDetailPanel();
+}
+
+function clearDetailPanel() {
+  document.getElementById('detail').textContent = '';
+}
+
+// Fully rebuild the event list DOM
+function renderEventsList(eventsToRender) {
+  const list = document.getElementById('event-list');
+  list.innerHTML = '';
+  if (eventsToRender.length === 0) {
+    list.innerHTML = '<div class="error-state">No events match filter</div>';
+    return;
+  }
+  eventsToRender.forEach((ev, idx) => {
+    const row = document.createElement('div');
+    row.className = 'event';
+    row.dataset.idx = idx;
+    row.style.display = 'flex';
+    row.style.alignItems = 'center';
+    row.style.gap = '8px';
+    // Build badge with tag colour
+    const badge = document.createElement('span');
+    badge.className = `tag-badge tag-${ev.tag || 'other'}`;
+    badge.textContent = ev.tag || 'other';
+    // Build content using fallback priority
+    const ts = ev.timestamp || '';
+    const dateStr = ts ? new Date(ts).toISOString().slice(0,10) : '';
+    const label = ev.tag || ev.category || ev.file || ev.task_file || ev.snippet || 'N/A';
+    const displayText = (ev.snippet && ev.snippet !== '[object Object]')
+      ? ev.snippet.substring(0, 30)
+      : label;
+    // Create text span
+    const txt = document.createElement('span');
+    txt.style.flex = '1';
+    txt.style.overflow = 'hidden';
+    txt.style.textOverflow = 'ellipsis';
+    txt.style.whiteSpace = 'nowrap';
+    txt.textContent = displayText;
+    // Optional date span
+    const dateSpan = document.createElement('span');
+    dateSpan.style.color = '#333';
+    dateSpan.textContent = dateStr;
+    row.appendChild(badge);
+    if (dateStr) row.appendChild(dateSpan);
+    row.appendChild(txt);
+    list.appendChild(row);
+  });
+  // Attach click delegation (once per render)
+  list.onclick = function(event) {
+    const target = event.target.closest('.event');
+    if (!target) return;
+    const idx = Number(target.dataset.idx);
+    if (idx >= 0 && idx < visibleEvents.length) {
+      document.getElementById('detail').textContent = JSON.stringify(visibleEvents[idx], null, 2);
+    }
+  };
+}
+
+// Full chart rebuild
+function renderChart(eventsToRender) {
+  if (!eventsToRender || eventsToRender.length === 0) {
+    if (chartInstance) { chartInstance.destroy(); chartInstance = null; }
+    return;
+  }
+  const hourCounts = {};
+  const now = new Date();
+  const oneDayAgo = new Date(now.getTime() - 24*60*60*1000);
+  eventsToRender.forEach(ev => {
+    const ts = ev.timestamp ? new Date(ev.timestamp) : null;
+    if (ts && ts >= oneDayAgo) {
+      const hour = ts.getUTCHours();
+      hourCounts[hour] = (hourCounts[hour] || 0) + 1;
+    }
+  });
+  const labels = Object.keys(hourCounts).sort();
+  const data = Object.values(hourCounts);
+  if (chartInstance) chartInstance.destroy();
+  const ctx = document.getElementById('chart').getContext('2d');
+  chartInstance = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels.map(h => `${h}:00`),
+      datasets: [{label: '# Events', data, backgroundColor: '#3498db'}]
+    },
+    options: {responsive: true, scales: {y: {beginAtZero: true}}}
+  });
+}
+
+// Initialize filter handler once
+document.getElementById('tag-filter').addEventListener('change', applyFilter);
+
+// Kick off loading
+setInterval(loadEventsFromServer, 10000);
+loadEventsFromServer();
+</script>
+</body>
+</html>

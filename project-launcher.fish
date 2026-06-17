@@ -38,13 +38,13 @@ if [ "$choice" = "$i" ]; then
 
     # Launch Code Puppy with Brain AI intro
     echo ""
-    echo "🧠💻 Code Puppy + Brain AI Auto-Integration Enabled"
+    echo " Code Puppy + Brain AI Auto-Integration Enabled"
     echo "===================================================="
     echo ""
     echo "Every prompt automatically uses Brain+OpenRouter coordination:"
-    echo "  • OpenRouter generates fast (5s)"
-    echo "  • Brain AI analyzes deeply (30-60s)"
-    echo "  • Brain critiques → OpenRouter refines → Better code"
+    echo "  - OpenRouter generates fast (5s)"
+    echo "  - Brain AI analyzes deeply (30-60s)"
+    echo "  - Brain critiques -> OpenRouter refines -> Better code"
     echo ""
     echo "Usage in Code Puppy:"
     echo "  bp <your prompt>"
@@ -64,6 +64,14 @@ else
         exit 1
     fi
     cd "${dir_map[$choice]}"
+    project_name=$(basename "$PWD")
+
+    # Auto-start Brain Coordinator (M2) in background if project has brain_coordinator.py
+    if [ -f "brain_coordinator.py" ]; then
+        echo "Starting Brain Coordinator (M2) in background..."
+        nohup ./venv/bin/python brain_coordinator.py > brain_coordinator.log 2>&1 &
+        echo "Brain Coordinator started with PID: $!"
+    fi
 
     # Auto-index if project has index_repo.py
     if [ -f "index_repo.py" ]; then
@@ -71,15 +79,15 @@ else
         ./venv/bin/python index_repo.py --index
     fi
 
-    # Launch Code Puppy with Brain AI intro
+    # Launch Code Puppy (M1)
     echo ""
-    echo "🧠💻 Code Puppy + Brain AI Auto-Integration Enabled"
+    echo " Code Puppy + Brain AI Auto-Integration Enabled"
     echo "===================================================="
     echo ""
     echo "Every prompt automatically uses Brain+OpenRouter coordination:"
-    echo "  • OpenRouter generates fast (5s)"
-    echo "  • Brain AI analyzes deeply (30-60s)"
-    echo "  • Brain critiques → OpenRouter refines → Better code"
+    echo "  - OpenRouter generates fast (5s)"
+    echo "  - Brain AI analyzes deeply (30-60s)"
+    echo "  - Brain critiques -> OpenRouter refines -> Better code"
     echo ""
     echo "Usage in Code Puppy:"
     echo "  bp <your prompt>"
@@ -94,3 +102,6 @@ else
 
     uvx code-puppy -i
 fi
+
+# Auto-run tests when Code Puppy starts
+alias cp='./venv/bin/python code_puppy_tool.py && ./venv/bin/python auto_test_runner.py test_code_puppy_tool.py'

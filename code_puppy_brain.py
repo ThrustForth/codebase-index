@@ -27,7 +27,8 @@ class BrainAIIntegration:
             critique = self.brain_wrapper.analyze_code(results, query)
             self.save_critique(critique, query)
             if critique.get("needs_new_tool"):
-                self.add_tool_to_agents_md(critique)
+                if critique.get("needs_new_tool"):
+    self.add_tool_to_agents_md(critique)
             return critique
         return results
 

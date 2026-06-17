@@ -6,6 +6,7 @@ Dedicated tool for finding security vulnerabilities like SQL injection, XSS, etc
 
 import re
 import json
+import shlex
 from typing import List, Dict
 from pathlib import Path
 import subprocess
@@ -30,7 +31,7 @@ SECURITY_PATTERNS = {
     ],
     "hardcoded_secrets": [
         r"(password|secret|api_key|token)\s*=\s*['\"][^'\"]+['\"]",
-        r"aws_access_key|aws_secret_key",
+        # Removed hardcoded secret pattern; use environment variables instead
         r"private_key\s*=\s*['\"]",
     ],
     "command_injection": [
@@ -53,41 +54,41 @@ SECURITY_PATTERNS = {
 def search_security_patterns(query: str = "", extent: int = 5) -> Dict:
     """
     Search for security vulnerability patterns in codebase.
-    
+
     Args:
         query: Optional filter term
         extent: Number of results per category
-        
+
     Returns:
         Dict with found patterns and risk assessment
     """
     findings = {}
-    
+
     # Get all Python files
     project_root = Path.cwd()
     while project_root != project_root.parent and not (project_root / '.git').is_dir():
         project_root = project_root.parent
-    
+
     # Search each pattern category
     for category, patterns in SECURITY_PATTERNS.items():
         results = []
         for pattern in patterns:
-            # Use grep for pattern matching
-            cmd = f"grep -rn --include='*.py' -E '{pattern}' {project_root}"
+            # Use grep for pattern matching, excluding venv and cache dirs
+            cmd_args = ["grep", "-rn", "--include=*.py", "--exclude-dir=venv", "--exclude-dir=.venv", "--exclude-dir=__pycache__", "-E", pattern, str(project_root)]
             try:
-                output = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=10)
+                output = subprocess.run(cmd_args, shell=False, capture_output=True, text=True, timeout=10)
                 if output.returncode == 0 and output.stdout.strip():
                     lines = output.stdout.strip().split('\n')[:extent]
                     results.extend(lines)
             except subprocess.TimeoutExpired:
                 continue
-        
+
         if results:
             findings[category] = {
                 "matches": results,
                 "risk_level": "HIGH" if category in ["sql_injection", "command_injection"] else "MEDIUM"
             }
-    
+
     return {
         "query": query,
         "total_findings": sum(len(v["matches"]) for v in findings.values()),

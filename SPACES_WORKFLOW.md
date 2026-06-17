@@ -196,3 +196,12 @@ EOF
 
 # Show the file
 !head -50 ~/projects/codebase-index/SPACES_WORKFLOW.md
+
+## Auto-Test Hook
+
+After every code edit, run tests automatically:
+
+1. Edit file → `on_edit(file_path)` called
+2. Run tests → `./venv/bin/pytest test_code_puppy_tool.py --cov`
+3. Output results → Show pass/fail in terminal
+4. If failed → Auto-suggest fix with Code Puppy

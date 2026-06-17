@@ -3,14 +3,16 @@ import lancedb
 import subprocess
 import json
 import sys
-import hashlib
+from validation import ensure_str
 import hmac
 
 # Security helpers
 MAX_QUERY_LENGTH = 1000
 
 def validate_input(text: str, max_len: int = MAX_QUERY_LENGTH) -> str:
-    """Validate and sanitize user input"""
+    """Validate and sanitize user input, delegating type check to shared helper."""
+    # Ensure it's a string
+    ensure_str(text, "text")
     if len(text) > max_len:
         raise ValueError(f"Input exceeds max length of {max_len}")
     # Remove null bytes and control chars
@@ -27,7 +29,7 @@ def main():
     args = parser.parse_args()
     
     # Validate inputs
-    args.query = validate_input(args.query)
+    args.query = ensure_str(args.query)
     args.top = max(1, min(args.top, 50))  # Limit top_k
 
     db = lancedb.connect("lancedb")

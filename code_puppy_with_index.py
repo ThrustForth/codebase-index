@@ -32,7 +32,7 @@ class BrainAICritique:
         # Call Ollama locally (assumes `ollama` CLI is installed and the model is available)
         try:
             result = subprocess.run(
-                ["ollama", "run", "phi3", "-"],  # using phi3 as a lightweight model
+                ["ollama", "run", "llama3.2:1b", "-"],  # using phi3 as a lightweight model
                 input=prompt,
                 capture_output=True,
                 text=True,

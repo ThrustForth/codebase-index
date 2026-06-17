@@ -1,0 +1,16 @@
+{
+  "run_id": "20260617-002",
+  "date": "2026-06-17",
+  "rejected_options": [
+    {
+      "option": "Patch each validation function locally (no shared helper)",
+      "reason_rejected": "Would create code duplication and increase maintenance load. Violates DRY.",
+      "verification_result": "Simulated patch would require modifying multiple files with identical logic."
+    }
+  ],
+  "chosen_solution": {
+    "implementation": "Shared validator helpers in validation.py with compatibility wrappers",
+    "validation": "All existing function signatures preserved while centralizing type constraints",
+    "rationale": "Optimizes long‑term maintainability while satisfying SOLID principles. Callers retain original API."
+  }
+}

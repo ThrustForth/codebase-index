@@ -1,256 +1,255 @@
 #!/usr/bin/env python3
-"""
-Brain Coordinator: Parallel Coordination between OpenRouter and Brain AI
-Option 4 Implementation: Fast initial code + iterative refinement
-"""
+"""Brain Coordinator - Runs M2/M3 self-improvement loop in background with required-section validation"""
 
-import threading
-import queue
-import time
+import os
+import json
 import subprocess
-from typing import Optional
-from dataclasses import dataclass
-from enum import Enum
+import time
+import hashlib
+import secrets
+import shlex
+from pathlib import Path
+from datetime import datetime, timedelta
+from brain_ai_wrapper import ModelMonitoringEfficacy, format_monitoring_section, save_critique_with_monitoring
 
-class AgentRole(Enum):
-    OPENROUTER_FAST = "openrouter_fast"
-    BRAIN_DEEP = "brain_deep"
+# Required sections that MUST appear in every fix proposal
+REQUIRED_SECTIONS = [
+    "Alternatives considered",
+    "Chosen solution",
+    "Why this solution is better",
+    "Tradeoffs",
+    "Constraints"
+]
 
-@dataclass
-class CodeCandidate:
-    source: str
-    code: str
-    quality_score: float = 0.0
-    critique: str = ""
-    timestamp: float = 0.0
+MAX_FIX_RETRY = 3
+
 
 class BrainCoordinator:
-    """
-    Coordinates parallel execution between OpenRouter (fast) and Brain AI (deep)
-    with iterative refinement loop.
-    """
+    def __init__(self, project_path: str = "~/projects/codebase-index"):
+        self.project_path = Path(project_path).expanduser()
+        self.critiques_dir = self.project_path / "critiques"
+        self.agents_file = self.project_path / "AGENTS.md"
+        self.map_file = self.project_path / "brain_modes" / "project_map.json"
 
-    def __init__(self, config: dict):
-        self.config = config
-        self.brain_queue = queue.Queue()
+        self.critiques_dir.mkdir(parents=True, exist_ok=True)
+        self.map_file.parent.mkdir(parents=True, exist_ok=True)
 
-        # Shell commands from your setup
-        self.BRAIN_RUN_CMD = "!~/projects/brain-ai/brain_ai/run_brain_task.fish"
-        self.CS_CMD = "!cs"
+    def get_file_hash(self, file_path: Path) -> str:
+        try:
+            return hashlib.md5(file_path.read_bytes()).hexdigest()
+        except:
+            return ""
 
-    def coordinated_workflow(self, task: str, top_k: int = 3) -> CodeCandidate:
+    def validate_fix_proposal(self, response: str, task_type: str = "fix_proposal") -> bool:
         """
-        Main coordination workflow:
-        1. OpenRouter generates initial code FAST (5s)
-        2. Brain analyzes in background (30-60s)
-        3. OpenRouter refines code using Brain's critique (5-10s)
-        4. Quality scoring to pick best candidate
+        Return True if the response contains all required sections.
+        Skip validation for brain-council audits (task_type != "fix_proposal").
         """
-        print(f"\n🚀 Starting coordinated workflow for: {task}")
-        start_time = time.time()
+        # Skip validation for audits — only enforce on fix proposals
+        if task_type != "fix_proposal":
+            return True
 
-        # Phase 1: Parallel execution
-        print("\n📍 Phase 1: Parallel execution (OpenRouter fast + Brain deep)")
-        initial_code = self._openrouter_generate(task, top_k)
+        if not response:
+            return False
+        for section in REQUIRED_SECTIONS:
+            if section.lower() not in response.lower():
+                return False
+        return True
 
-        brain_analysis_thread = threading.Thread(
-            target=self._brain_analyze,
-            args=(task, initial_code.code)
-        )
-        brain_analysis_thread.start()
+    def get_fix_with_validation(self, task_prompt: str) -> str:
+        """
+        Run M1 task with auto-retry if required sections are missing.
+        """
+        prompt = task_prompt
 
-        # Phase 2: Iterative refinement
-        print("\n📍 Phase 2: Iterative refinement (Brain critiques → OpenRouter improves)")
-        refined_code = self._refine_with_brain_critique(task, initial_code)
-
-        # Phase 3: Quality scoring
-        print("\n📍 Phase 3: Quality scoring (pick best candidate)")
-        best_candidate = self._score_and_select([initial_code, refined_code])
-
-        elapsed = time.time() - start_time
-        print(f"\n✅ Workflow complete in {elapsed:.2f}s")
-        print(f"   Best source: {best_candidate.source}")
-        print(f"   Quality score: {best_candidate.quality_score:.2f}")
-
-        return best_candidate
-
-    def _openrouter_generate(self, task: str, top_k: int) -> CodeCandidate:
-        """Generate initial code using OpenRouter (fast, ~5s)"""
-        print(f"\n⚡️ OpenRouter: Generating initial code for '{task}'")
-
-        initial_code = self._execute_openrouter_query(task, top_k)
-
-        candidate = CodeCandidate(
-            source=AgentRole.OPENROUTER_FAST.value,
-            code=initial_code,
-            quality_score=0.0,
-            timestamp=time.time()
-        )
-
-        print(f"   ✅ Initial code generated ({len(initial_code)} chars)")
-        return candidate
-
-    def _brain_analyze(self, task: str, code: str) -> None:
-        """Analyze code using Brain AI in background (deep, ~30-60s)"""
-        print(f"\n🧠 Brain: Starting deep analysis (background thread)")
-
-        analysis_prompt = f"""
-Analyze this code for the task: {task}
-
-CODE:
-{code}
-
-Provide:
-1. Technical critique (bugs, edge cases, performance)
-2. Architecture improvements
-3. Security concerns
-4. Better alternatives
-"""
-
-        critique = self._execute_brain_query(analysis_prompt)
-
-        self.brain_queue.put({
-            'task': task,
-            'critique': critique,
-            'timestamp': time.time()
-        })
-
-        print(f"   ✅ Brain analysis complete ({len(critique)} chars)")
-
-    def _refine_with_brain_critique(self, task: str, initial_code: CodeCandidate) -> CodeCandidate:
-        """Refine code using Brain's critique"""
-        print(f"\n🔄 Refining: Using Brain's critique to improve code")
-
-        try:
-            brain_result = self.brain_queue.get(timeout=60)
-            critique = brain_result['critique']
-            print(f"   Got Brain critique ({len(critique)} chars)")
-        except queue.Empty:
-            print("   ⚠️ Brain timeout, using initial code only")
-            return initial_code
-
-        refinement_prompt = f"""
-Improve this code based on Brain AI's critique:
-
-TASK: {task}
-
-ORIGINAL CODE:
-{initial_code.code}
-
-BRAIN'S CRITIQUE:
-{critique}
-
-Generate improved code that addresses all critique points.
-"""
-
-        refined_code = self._execute_openrouter_query(refinement_prompt, top_k=1)
-
-        candidate = CodeCandidate(
-            source=AgentRole.OPENROUTER_FAST.value + "_refined",
-            code=refined_code,
-            critique=critique,
-            timestamp=time.time()
-        )
-
-        print(f"   ✅ Refinement complete ({len(refined_code)} chars)")
-        return candidate
-
-    def _score_and_select(self, candidates: list) -> CodeCandidate:
-        """Score all candidates and select best one"""
-        print(f"\n📊 Scoring {len(candidates)} candidates")
-
-        scored = []
-        for candidate in candidates:
-            score = self._calculate_quality_score(candidate)
-            candidate.quality_score = score
-            scored.append((score, candidate))
-            print(f"   {candidate.source}: {score:.2f}")
-
-        scored.sort(key=lambda x: x[0], reverse=True)
-        best_score, best_candidate = scored[0]
-
-        print(f"\n🏆 Best candidate: {best_candidate.source} (score: {best_score:.2f})")
-        return best_candidate
-
-    def _calculate_quality_score(self, candidate: CodeCandidate) -> float:
-        """Calculate quality score based on completeness, critique, performance, security"""
-        score = 0.0
-
-        # Base score from code length (completeness)
-        score += min(len(candidate.code) / 1000, 3.0)
-
-        # If refined with Brain critique, add bonus
-        if candidate.critique:
-            score += 2.0
-            critique_words = len(candidate.critique.split())
-            score += min(critique_words / 50, 2.0)
-
-        # Performance indicators
-        performance_keywords = ['efficient', 'optimal', 'fast', 'cache', 'batch']
-        if any(kw in candidate.code.lower() for kw in performance_keywords):
-            score += 1.5
-
-        # Security indicators
-        security_keywords = ['secure', 'validate', 'sanitize', 'escape', 'auth']
-        if any(kw in candidate.code.lower() for kw in security_keywords):
-            score += 1.5
-
-        return max(score, 0.0)
-
-    def _execute_openrouter_query(self, prompt: str, top_k: int = 1) -> str:
-        """Execute query using OpenRouter via cs command"""
-        cmd = f"cs {prompt[:50]} .py {top_k}"
-
-        try:
-            result = subprocess.run(
-                cmd,
-                shell=False,
-                capture_output=True,
-                text=True,
-                timeout=self.config['openrouter']['timeout'],
-                executable='/usr/bin/fish'
+        # Inject required-section template if not already present
+        if "\n\nWhen proposing a fix, you MUST include:\n" not in prompt:
+            prompt = (
+                f"{task_prompt}\n\n"
+                "When proposing a fix, you MUST include:\n\n"
+                f"- {REQUIRED_SECTIONS[0]}\n"
+                f"- {REQUIRED_SECTIONS[1]}\n"
+                f"- {REQUIRED_SECTIONS[2]}\n"
+                f"- {REQUIRED_SECTIONS[3]}\n"
+                f"- {REQUIRED_SECTIONS[4]}\n\n"
+                "Do not skip any section. If any section is missing, the solution is invalid."
             )
-            return result.stdout if result.stdout else f"# Error: {result.stderr}"
-        except Exception as e:
-            return f"# OpenRouter error: {str(e)}"
 
-    def _execute_brain_query(self, prompt: str) -> str:
-        """Execute query using Brain AI multi-agent system"""
-        cmd = f"~/projects/brain-ai/brain_ai/run_brain_task.fish '{prompt}'"
+        for attempt in range(MAX_FIX_RETRY):
+            result = self.run_m1_task(prompt)
 
+            if self.validate_fix_proposal(result):
+                return result
+
+            if attempt < MAX_FIX_RETRY - 1:
+                # Augment prompt to force structure on retry
+                prompt = (
+                    f"{task_prompt}\n\n"
+                    "Your previous response was incomplete. You MUST include all of these sections:\n\n"
+                    f"- {REQUIRED_SECTIONS[0]}\n"
+                    f"- {REQUIRED_SECTIONS[1]}\n"
+                    f"- {REQUIRED_SECTIONS[2]}\n"
+                    f"- {REQUIRED_SECTIONS[3]}\n"
+                    f"- {REQUIRED_SECTIONS[4]}\n\n"
+                    "Do not skip any section. If any section is missing, the solution is invalid.\n\n"
+                    "Please regenerate your response with all sections included."
+                )
+
+        raise ValueError(
+            "Fix proposal failed validation after multiple retries. "
+            "The model did not include all required sections."
+        )
+
+    def update_file_map(self) -> dict:
+        file_map = {}
+        for py_file in self.project_path.rglob("*.py"):
+            if any(part in str(py_file) for part in ['venv', '__pycache__', '.git']):
+                continue
+            file_map[str(py_file)] = {
+                "hash": self.get_file_hash(py_file),
+                "size": py_file.stat().st_size,
+                "modified": datetime.fromtimestamp(py_file.stat().st_mtime).isoformat()
+            }
+        self.map_file.write_text(json.dumps(file_map, indent=2))
+        return file_map
+
+    def find_recent_changes(self, file_map: dict, hours: int = 1) -> list:
+        changes = []
+        for file_path, info in file_map.items():
+            modified = datetime.fromisoformat(info["modified"])
+            if modified > datetime.now() - timedelta(hours=hours):
+                changes.append(file_path)
+        return changes
+
+    def find_orphaned_patterns(self, file_map: dict) -> list:
+        orphans = []
+        for file_path, info in file_map.items():
+            if info["size"] == 0:
+                orphans.append(file_path)
+        return orphans
+
+    def find_tasks(self, file_map: dict) -> list:
+        tasks = []
+        for file_path in self.find_recent_changes(file_map, hours=1):
+            tasks.append({"type": "recent_change", "file": file_path, "prompt": f"Review recent changes to {file_path}"})
+        for file_path in self.find_orphaned_patterns(file_map):
+            tasks.append({"type": "orphaned", "file": file_path, "prompt": f"Check if {file_path} is orphaned"})
+        if len(tasks) == 0:
+            py_files = [f for f in self.project_path.rglob("*.py") if 'venv' not in str(f)]
+            if py_files:
+                random_file = secrets.choice(list(py_files)[:50])
+                tasks.append({"type": "random_review", "file": str(random_file), "prompt": f"Code review: {random_file}"})
+        return tasks
+
+    def run_m1_task(self, task_prompt: str) -> str:
         try:
-            result = subprocess.run(
-                cmd,
-                shell=False,
-                capture_output=True,
-                text=True,
-                timeout=self.config['brain']['timeout'],
-                executable='/usr/bin/fish'
-            )
-            return result.stdout if result.stdout else f"# Error: {result.stderr}"
+            # Escape the task_prompt to prevent shell injection
+            safe_prompt = shlex.quote(task_prompt)
+            cmd = f"cd {self.project_path} && echo '{safe_prompt}' | timeout 60 uvx code-puppy 2>&1"
+            result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=120)
+            return result.stdout if result.returncode == 0 else result.stderr
         except Exception as e:
-            return f"# Brain AI error: {str(e)}"
+            return f"M1 Error: {str(e)}"
 
-def create_brain_coordinator(config: dict = None) -> BrainCoordinator:
-    """Create BrainCoordinator with default config"""
-    default_config = {
-        'openrouter': {'model': 'your-openrouter-model', 'timeout': 10},
-        'brain': {'timeout': 60, 'agents': ['ID', 'EGO', 'SUPER-EGO']},
-        'refinement': {'max_iterations': 2, 'min_score_improvement': 0.5},
-    }
+    def run_m3_critique(self, task: dict, result: str) -> str:
+        try:
+            from brain_ai_wrapper import BrainAI
+            critique = BrainAI().critique(f"Task Type: {task['type']}\nFile: {task['file']}\nTask: {task['prompt']}\nResult: {result}\n\nPlease critique this work and identify: 1. Security gaps 2. Quality issues 3. Missing edge cases 4. Suggestions for improvement 5. New tools that should be added")
+            return critique
+        except Exception as e:
+            return f"M3 Critique Error: {str(e)}"
 
-    if config:
-        default_config.update(config)
+    def save_critique(self, task: dict, result: str, critique: str) -> str:
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        critique_id = f"critique_{hashlib.md5(timestamp.encode()).hexdigest()[:8]}"
+        critique_data = {
+            "id": critique_id,
+            "timestamp": timestamp,
+            "task_type": task["type"],
+            "task_file": task["file"],
+            "task_prompt": task["prompt"],
+            "result": result,
+            "critique": critique,
+            "improvements": self.extract_improvements(critique),
+        }
+        monitoring = ModelMonitoringEfficacy()
+        efficacy = monitoring.capture_model_efficacy(critique_data.get('critique', ''))
+        critique_data['model_monitoring_efficacy'] = efficacy
+        monitoring_section = format_monitoring_section(efficacy, monitoring.get_trend_analysis())
+        critique_data['critique'] = critique_data.get('critique', '') + '\n\n' + monitoring_section
+        critique_file = self.critiques_dir / f"{critique_id}.json"
+        critique_file.write_text(json.dumps(critique_data, indent=2))
 
-    return BrainCoordinator(default_config)
+        if 'Error:' in result or 'cannot import' in result:
+            error_log_path = self.project_path / "errors.log"
+            with open(error_log_path, 'a') as f:
+                f.write(f"[{datetime.now().isoformat()}] - Error detected: {result}\n")
+
+        return str(critique_file)
+
+    def extract_improvements(self, critique: str) -> list:
+        improvements = []
+        if "new tool" in critique.lower(): improvements.append("Add new tool")
+        if "security" in critique.lower(): improvements.append("Security fix needed")
+        if "quality" in critique.lower(): improvements.append("Quality improvement")
+        return improvements
+
+    def save_decision_log(self, task: dict, result: str, critique: str, passed: bool, score: float | None = None):
+        """Auto-save decision log for benchmark-style scoring"""
+        timestamp = datetime.utcnow().strftime("%Y%m%d-%H%M%S")
+        log_path = self.critiques_dir / f"decision-log-{timestamp}.json"
+
+        entry = {
+            "timestamp": timestamp,
+            "task_type": task["type"],
+            "task_file": task["file"],
+            "task_prompt": task["prompt"],
+            "result": result,
+            "critique": critique,
+            "passed": passed,
+            "score": score,
+        }
+
+        log_path.write_text(json.dumps(entry, indent=2))
+
+    def run_critique_loop(self, interval: int = 60):
+        print(f"🧠 Brain Coordinator starting critique loop (interval: {interval}s)")
+        prev_map = {}
+        if self.map_file.exists(): prev_map = json.loads(self.map_file.read_text())
+
+        while True:
+            try:
+                file_map = self.update_file_map()
+                new_count = sum(1 for f in file_map if f not in prev_map)
+                modified_count = sum(1 for f in file_map if f in prev_map and file_map[f]["hash"] != prev_map[f]["hash"])
+                deleted_count = sum(1 for f in prev_map if f not in file_map)
+                print(f"[M2] Map updated: {len(file_map)} files total, {new_count} new, {modified_count} modified, {deleted_count} deleted")
+
+                tasks = self.find_tasks(file_map)
+                if tasks:
+                    print(f"[M2] Found {len(tasks)} tasks")
+                    for task in tasks:
+                        try:
+                            result = self.get_fix_with_validation(task["prompt"])
+                        except ValueError as e:
+                            print(f"[M2] Validation failed for task: {e}")
+                            result = f"[VALIDATION FAILED] {e}"
+
+                        critique = self.run_m3_critique(task, result)
+                        critique_file = self.save_critique(task, result, critique)
+
+                        # Auto-save decision log with pass/fail based on validation
+                        passed = self.validate_fix_proposal(result, task["type"])
+                        self.save_decision_log(task, result, critique, passed, score=None)
+
+                        print(f"[M2] Saved critique: {critique_file}")
+                else:
+                    print("[M2] No tasks")
+                prev_map = file_map
+            except Exception as e:
+                print(f"[M2] Error: {str(e)}")
+            time.sleep(interval)
 
 
 if __name__ == "__main__":
-    coordinator = create_brain_coordinator()
-    test_task = "create a Python function that parses JSON config files"
-    result = coordinator.coordinated_workflow(test_task, top_k=3)
-
-    print("\n" + "="*60)
-    print("FINAL RESULT:")
-    print("="*60)
-    print(result.code)
+    BrainCoordinator().run_critique_loop(interval=60)
