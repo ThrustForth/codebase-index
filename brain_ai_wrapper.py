@@ -503,6 +503,57 @@ class BrainAIWrapper:
         else:
             return "Review code quality"
 
+    def psychoanalytic_critique(self, code: str, task: str) -> str:
+        """Run psychoanalytic: Id -> Superego -> Ego"""
+        from crewai import Agent, Task, Crew, LLM
+        from config import (get_psycho_model, OLLAMA_BASE_URL, ID_TEMPERATURE, SUPERCERO_TEMPERATURE, EGO_TEMPERATURE)
+
+        # Id Agent - uses ID_MODEL from config
+        id_agent = Agent(
+            role="Id - Impulsive Critic",
+            goal="Find bugs",
+            backstory="Impulsive brutal",
+            verbose=False,
+            llm=LLM(
+                model=get_psycho_model('id'),
+                base_url=OLLAMA_BASE_URL,
+                temperature=ID_TEMPERATURE,
+            ),
+        )
+        id_desc = "ID: " + task + "\n" + code
+        id_res = Crew(agents=[id_agent], tasks=[Task(description=id_desc, agent=id_agent, expected_output="x")], verbose=False).kickoff().raw
+
+        # Superego Agent - uses SUPERCERO_MODEL from config
+        superego_agent = Agent(
+            role="Superego - Perfectionist Guardian",
+            goal="Quality",
+            backstory="Perfectionist",
+            verbose=False,
+            llm=LLM(
+                model=get_psycho_model('superego'),
+                base_url=OLLAMA_BASE_URL,
+                temperature=SUPERCERO_TEMPERATURE,
+            ),
+        )
+        sg_desc = "SUPEREGO: " + task + "\n" + code
+        sg_res = Crew(agents=[superego_agent], tasks=[Task(description=sg_desc, agent=superego_agent, expected_output="x")], verbose=False).kickoff().raw
+
+        # Ego Agent - uses EGO_MODEL from config
+        ego_agent = Agent(
+            role="Ego - Rational Mediator",
+            goal="Balance",
+            backstory="Mediator",
+            verbose=False,
+            llm=LLM(
+                model=get_psycho_model('ego'),
+                base_url=OLLAMA_BASE_URL,
+                temperature=EGO_TEMPERATURE,
+            ),
+        )
+        eg_desc = "EGO: ID: " + id_res + " SUP: " + sg_res + " TASK: " + task
+        ego_res = Crew(agents=[ego_agent], tasks=[Task(description=eg_desc, agent=ego_agent, expected_output="x")], verbose=False).kickoff().raw
+        return ego_res
+
 def _legacy_get_brain_critique(code: str) -> str:
     return BrainAIWrapper().critique(code)
 

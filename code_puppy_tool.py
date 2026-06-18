@@ -7,17 +7,29 @@ This can be imported and used as a tool by the Code Puppy agent.
 import sys
 import os
 import json
+import configparser
 from pathlib import Path
 from typing import Optional, Dict, Any
+from langcrew.llm import LLM
 
 # Add the project root to the path
 sys.path.insert(0, str(Path(__file__).parent))
 
+# Load config
+config = configparser.ConfigParser()
+config.read('/home/mine/.code_puppy/puppy.cfg')
+
 # Lazy imports inside methods to avoid heavy dependencies at import time
-from brain_modes.brain_mode_manager import record_activity
+try:
+    from brain_modes.brain_mode_manager import record_activity
+except ImportError:
+    # Stub for environments without brain_modes
+    def record_activity(*args, **kwargs):
+        pass
 
 # Import project map tool functions
 from project_map_tool import search_relevant_files, load_file_content, get_file_metadata
+from config import (CODEPUPPY_MODEL, OLLAMA_BASE_URL, OPENROUTER_MODEL, OPENROUTER_BASE_URL, OPENROUTER_API_KEY_ENV)
 
 DB_PATH = "/home/mine/projects/codebase-index/db"
 
@@ -59,10 +71,23 @@ class CodePuppyTool:
     def __init__(self, project_root: Optional[str] = None):
         self.project_root = project_root or self._find_project_root()
         self.db_path = Path(self.project_root) / 'db'
+        self.default_model = CODEPUPPY_MODEL
+        self.base_url = OLLAMA_BASE_URL
         # Lazy import to avoid heavy dependencies
         from brain_ai_wrapper import BrainAIWrapper
         self.brain_wrapper = BrainAIWrapper()
-        self.brain_ai = BrainAICritique()
+        self.brain_ai = BrainAICritique(model=self.default_model)
+
+    def plan_openrouter(self, task: str):
+        """Use OpenRouter fallback model for complex tasks."""
+        api_key = os.environ.get(OPENROUTER_API_KEY_ENV)
+        if not api_key:
+            raise ValueError(f"OpenRouter API key not found. Set {OPENROUTER_API_KEY_ENV} environment variable.")
+        return LLM(
+            model=OPENROUTER_MODEL,
+            base_url=OPENROUTER_BASE_URL,
+            api_key=api_key,
+        )
 
         # Ensure index exists
         self._ensure_index()
@@ -115,7 +140,7 @@ class CodePuppyTool:
 
         return "\n".join(formatted)
 
-    def search_with_brain_council(self, query: str, ext: str = ".py", top_k: int = 5) -> str:
+    def process_query(self, query: str, ext: str = ".py", top_k: int = 5, no_critique: bool = False) -> str:
         """
         LLM Council Architecture: Auto-call CrewAI Brain for complex tasks
 
@@ -123,6 +148,7 @@ class CodePuppyTool:
             query: The search query
             ext: File extension to filter by
             top_k: Number of results to return
+            no_critique: Skip Brain Council critique/analysis
 
         Returns:
             Codebase results merged with Brain Council analysis
@@ -130,21 +156,24 @@ class CodePuppyTool:
         # Step 1: Code Puppy search (fast)
         codebase_results = self.search(query, ext, top_k)
 
+        if no_critique:
+            return codebase_results
+
         # Step 2: Always call Brain Council for full analysis
-        print("\n🧠 Calling Brain Council (ID/EGO/SUPER-EGO/MEMORY)...")
+        print("\n Calling Brain Council (ID/EGO/SUPER-EGO/MEMORY)...")
 
         # Step 3: Call CrewAI Brain Council (ID→EGO→SUPER-EGO→MEMORY)
         brain_result = self.brain_wrapper.plan(query)
 
         # Step 4: Merge results
         merged = f"""
-🔍 CODEBASE RESULTS (from codebase-index):
+ CODEBASE RESULTS (from codebase-index):
 {codebase_results}
 
-🧠 BRAIN COUNCIL ANALYSIS (ID/EGO/SUPER-EGO/MEMORY):
+ BRAIN COUNCIL ANALYSIS (ID/EGO/SUPER-EGO/MEMORY):
 {brain_result}
 
-✅ MERGED RESULT:
+ MERGED RESULT:
 {brain_result}
 """
         return merged
@@ -156,6 +185,7 @@ def main():
     parser = argparse.ArgumentParser(description='Code Puppy Tool - Codebase search with Brain AI')
     parser.add_argument('query', nargs='?', help='Search query')
     parser.add_argument('--ext', default='.py', help='File extension to filter by')
+    parser.add_argument('--critique', action='store_true', help='Enable Brain Council critique (default)')
     parser.add_argument('--top-k', type=int, default=5, help='Number of results')
 
     args = parser.parse_args()
@@ -232,18 +262,43 @@ def main():
 
                     print(result)
 
+                elif query.startswith('brain-council '):
+                    task = query[14:]
+                    brain = BrainAIWrapper()
+                   print("\nCalling Brain Council via CrewAI...")
+                    model = config.get('command_to_model_mapping', 'command_brain-council_model', fallback='openrouter_qwen')
+                    result = brain.plan_crewai(task, model)
+                    print(result)
+
+
+                elif query.startswith('openrouter '):
+                    task = query[11:]
+                    brain = BrainAIWrapper()
+                    print("
+ Calling Brain Council via OpenRouter...")
+                    result = brain.plan_openrouter(task, plan)
+                    print(result)
+
+                elif query.startswith('qwencoder '):
+                    task = query[10:]
+                    cp = CodePuppyTool()
+                    print("
+ Calling QwEncoder via Ollama...")
+                    result = cp.brain_ai.process(task)
+                    print(result)
+
                 # Handle search command
                 elif query.startswith("search "):
                     search_query = query[7:]
                     if not search_query:
                         print("❌ Usage: search <query>")
                         continue
-                    result = cp.search_with_brain_council(search_query, ".py", 5)
+                    result = cp.process_query(search_query, ".py", 5)
                     print(result)
 
                 # Normal Code Puppy search with auto Brain Council
                 else:
-                    result = cp.search_with_brain_council(query, args.ext, args.top_k)
+                    result = cp.process_query(query, args.ext, args.top_k, no_critique=args.no_critique)
                     print(result)
 
             except KeyboardInterrupt:
@@ -256,7 +311,7 @@ def main():
     # Non-interactive mode
     else:
         cp = CodePuppyTool()
-        result = cp.search_with_brain_council(args.query, args.ext, args.top_k)
+        result = cp.process_query(args.query, args.ext, args.top_k, no_critique=not args.critique)
         print(result)
 
 if __name__ == "__main__":

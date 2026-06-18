@@ -1,0 +1,2118 @@
+/home/mine/projects/codebase-index/brain_coordinator.py:199: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  timestamp = datetime.utcnow().strftime("%Y%m%d-%H%M%S")
+2026-06-18 10:03:15,150 - brain_ai_wrapper - ERROR - Brain AI subprocess failed: ERROR:crewai.flow.runtime:Error executing listener call_llm_native_tools: Invalid response from LLM call - None or empty.
+ERROR:crewai.flow.runtime:Error executing listener call_llm_native_tools: Invalid response from LLM call - None or empty.
+ERROR:crewai.flow.runtime:Error executing listener call_llm_native_tools: Invalid response from LLM call - None or empty.
+Traceback (most recent call last):
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1943, in kickoff
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 815, in execute_task
+    result = self._execute_without_timeout(task_prompt, task)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 880, in _execute_without_timeout
+    invoke_result = self.agent_executor.invoke(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 2686, in invoke
+    self.kickoff()
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1948, in kickoff
+    return asyncio.run(_run_flow())
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1934, in _run_flow
+    return await self.kickoff_async(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2237, in kickoff_async
+    await asyncio.gather(*tasks)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2477, in _execute_start_method
+    await self._execute_listeners(start_method_name, result, finished_event_id)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2913, in _execute_single_listener
+    await self._execute_listeners(
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2909, in _execute_single_listener
+    listener_result, finished_event_id = await self._execute_method(
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2643, in _execute_method
+    raise e
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2561, in _execute_method
+    result = await asyncio.to_thread(ctx.run, method, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/flow_wrappers.py", line 102, in __call__
+    return self._meth(self._instance, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 1377, in call_llm_native_tools
+    answer = get_llm_response(
+             ^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 500, in get_llm_response
+    return _validate_and_finalize_llm_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 445, in _validate_and_finalize_llm_response
+    raise ValueError("Invalid response from LLM call - None or empty.")
+ValueError: Invalid response from LLM call - None or empty.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1943, in kickoff
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 815, in execute_task
+    result = self._execute_without_timeout(task_prompt, task)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 880, in _execute_without_timeout
+    invoke_result = self.agent_executor.invoke(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 2686, in invoke
+    self.kickoff()
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1948, in kickoff
+    return asyncio.run(_run_flow())
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1934, in _run_flow
+    return await self.kickoff_async(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2237, in kickoff_async
+    await asyncio.gather(*tasks)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2477, in _execute_start_method
+    await self._execute_listeners(start_method_name, result, finished_event_id)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2913, in _execute_single_listener
+    await self._execute_listeners(
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2909, in _execute_single_listener
+    listener_result, finished_event_id = await self._execute_method(
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2643, in _execute_method
+    raise e
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2561, in _execute_method
+    result = await asyncio.to_thread(ctx.run, method, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/flow_wrappers.py", line 102, in __call__
+    return self._meth(self._instance, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 1377, in call_llm_native_tools
+    answer = get_llm_response(
+             ^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 500, in get_llm_response
+    return _validate_and_finalize_llm_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 445, in _validate_and_finalize_llm_response
+    raise ValueError("Invalid response from LLM call - None or empty.")
+ValueError: Invalid response from LLM call - None or empty.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1943, in kickoff
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/mine/projects/brain-ai/brain_ai/src/brain_ai/main.py", line 27, in <module>
+    result = crew.kickoff()
+             ^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/crew.py", line 1021, in kickoff
+    result = self._run_sequential_process()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/crew.py", line 1470, in _run_sequential_process
+    return self._execute_tasks(self.tasks)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/crew.py", line 1569, in _execute_tasks
+    task_output = task.execute_sync(
+                  ^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/task.py", line 580, in execute_sync
+    return self._execute_core(agent, context, tools)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/task.py", line 882, in _execute_core
+    raise e
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/task.py", line 790, in _execute_core
+    result = agent.execute_task(
+             ^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 828, in execute_task
+    result = self._handle_execution_error(e, task, context, tools)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 738, in _handle_execution_error
+    return self.execute_task(task, context, tools)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 828, in execute_task
+    result = self._handle_execution_error(e, task, context, tools)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 738, in _handle_execution_error
+    return self.execute_task(task, context, tools)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 828, in execute_task
+    result = self._handle_execution_error(e, task, context, tools)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 737, in _handle_execution_error
+    self._check_execution_error(e, task)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 717, in _check_execution_error
+    raise e
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 815, in execute_task
+    result = self._execute_without_timeout(task_prompt, task)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 880, in _execute_without_timeout
+    invoke_result = self.agent_executor.invoke(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 2686, in invoke
+    self.kickoff()
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1948, in kickoff
+    return asyncio.run(_run_flow())
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1934, in _run_flow
+    return await self.kickoff_async(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2237, in kickoff_async
+    await asyncio.gather(*tasks)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2477, in _execute_start_method
+    await self._execute_listeners(start_method_name, result, finished_event_id)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2913, in _execute_single_listener
+    await self._execute_listeners(
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2913, in _execute_single_listener
+    await self._execute_listeners(
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2766, in _execute_listeners
+    await asyncio.gather(*tasks)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2913, in _execute_single_listener
+    await self._execute_listeners(
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2909, in _execute_single_listener
+    listener_result, finished_event_id = await self._execute_method(
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2643, in _execute_method
+    raise e
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2561, in _execute_method
+    result = await asyncio.to_thread(ctx.run, method, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/flow_wrappers.py", line 102, in __call__
+    return self._meth(self._instance, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 1377, in call_llm_native_tools
+    answer = get_llm_response(
+             ^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 500, in get_llm_response
+    return _validate_and_finalize_llm_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 445, in _validate_and_finalize_llm_response
+    raise ValueError("Invalid response from LLM call - None or empty.")
+ValueError: Invalid response from LLM call - None or empty.
+
+2026-06-18 10:10:11,761 - brain_ai_wrapper - ERROR - Brain AI subprocess failed: ERROR:crewai.flow.runtime:Error executing listener call_llm_native_tools: Invalid response from LLM call - None or empty.
+ERROR:crewai.flow.runtime:Error executing listener call_llm_native_tools: Invalid response from LLM call - None or empty.
+ERROR:crewai.flow.runtime:Error executing listener call_llm_native_tools: Invalid response from LLM call - None or empty.
+Traceback (most recent call last):
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1943, in kickoff
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 815, in execute_task
+    result = self._execute_without_timeout(task_prompt, task)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 880, in _execute_without_timeout
+    invoke_result = self.agent_executor.invoke(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 2686, in invoke
+    self.kickoff()
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1948, in kickoff
+    return asyncio.run(_run_flow())
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1934, in _run_flow
+    return await self.kickoff_async(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2237, in kickoff_async
+    await asyncio.gather(*tasks)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2477, in _execute_start_method
+    await self._execute_listeners(start_method_name, result, finished_event_id)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2913, in _execute_single_listener
+    await self._execute_listeners(
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2909, in _execute_single_listener
+    listener_result, finished_event_id = await self._execute_method(
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2643, in _execute_method
+    raise e
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2561, in _execute_method
+    result = await asyncio.to_thread(ctx.run, method, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/flow_wrappers.py", line 102, in __call__
+    return self._meth(self._instance, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 1377, in call_llm_native_tools
+    answer = get_llm_response(
+             ^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 500, in get_llm_response
+    return _validate_and_finalize_llm_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 445, in _validate_and_finalize_llm_response
+    raise ValueError("Invalid response from LLM call - None or empty.")
+ValueError: Invalid response from LLM call - None or empty.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1943, in kickoff
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 815, in execute_task
+    result = self._execute_without_timeout(task_prompt, task)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 880, in _execute_without_timeout
+    invoke_result = self.agent_executor.invoke(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 2686, in invoke
+    self.kickoff()
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1948, in kickoff
+    return asyncio.run(_run_flow())
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1934, in _run_flow
+    return await self.kickoff_async(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2237, in kickoff_async
+    await asyncio.gather(*tasks)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2477, in _execute_start_method
+    await self._execute_listeners(start_method_name, result, finished_event_id)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2913, in _execute_single_listener
+    await self._execute_listeners(
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2909, in _execute_single_listener
+    listener_result, finished_event_id = await self._execute_method(
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2643, in _execute_method
+    raise e
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2561, in _execute_method
+    result = await asyncio.to_thread(ctx.run, method, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/flow_wrappers.py", line 102, in __call__
+    return self._meth(self._instance, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 1377, in call_llm_native_tools
+    answer = get_llm_response(
+             ^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 500, in get_llm_response
+    return _validate_and_finalize_llm_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 445, in _validate_and_finalize_llm_response
+    raise ValueError("Invalid response from LLM call - None or empty.")
+ValueError: Invalid response from LLM call - None or empty.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1943, in kickoff
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/mine/projects/brain-ai/brain_ai/src/brain_ai/main.py", line 27, in <module>
+    result = crew.kickoff()
+             ^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/crew.py", line 1021, in kickoff
+    result = self._run_sequential_process()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/crew.py", line 1470, in _run_sequential_process
+    return self._execute_tasks(self.tasks)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/crew.py", line 1569, in _execute_tasks
+    task_output = task.execute_sync(
+                  ^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/task.py", line 580, in execute_sync
+    return self._execute_core(agent, context, tools)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/task.py", line 882, in _execute_core
+    raise e
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/task.py", line 790, in _execute_core
+    result = agent.execute_task(
+             ^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 828, in execute_task
+    result = self._handle_execution_error(e, task, context, tools)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 738, in _handle_execution_error
+    return self.execute_task(task, context, tools)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 828, in execute_task
+    result = self._handle_execution_error(e, task, context, tools)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 738, in _handle_execution_error
+    return self.execute_task(task, context, tools)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 828, in execute_task
+    result = self._handle_execution_error(e, task, context, tools)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 737, in _handle_execution_error
+    self._check_execution_error(e, task)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 717, in _check_execution_error
+    raise e
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 815, in execute_task
+    result = self._execute_without_timeout(task_prompt, task)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 880, in _execute_without_timeout
+    invoke_result = self.agent_executor.invoke(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 2686, in invoke
+    self.kickoff()
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1948, in kickoff
+    return asyncio.run(_run_flow())
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1934, in _run_flow
+    return await self.kickoff_async(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2237, in kickoff_async
+    await asyncio.gather(*tasks)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2477, in _execute_start_method
+    await self._execute_listeners(start_method_name, result, finished_event_id)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2913, in _execute_single_listener
+    await self._execute_listeners(
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2909, in _execute_single_listener
+    listener_result, finished_event_id = await self._execute_method(
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2643, in _execute_method
+    raise e
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2561, in _execute_method
+    result = await asyncio.to_thread(ctx.run, method, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/flow_wrappers.py", line 102, in __call__
+    return self._meth(self._instance, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 1377, in call_llm_native_tools
+    answer = get_llm_response(
+             ^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 500, in get_llm_response
+    return _validate_and_finalize_llm_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 445, in _validate_and_finalize_llm_response
+    raise ValueError("Invalid response from LLM call - None or empty.")
+ValueError: Invalid response from LLM call - None or empty.
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              2026-06-18 09:48:18,263 - brain_ai_wrapper - ERROR - Brain AI subprocess failed: ERROR:crewai.flow.runtime:Error executing listener call_llm_native_tools: Invalid response from LLM call - None or empty.
+ERROR:crewai.flow.runtime:Error executing listener call_llm_native_tools: Invalid response from LLM call - None or empty.
+ERROR:crewai.flow.runtime:Error executing listener call_llm_native_tools: Invalid response from LLM call - None or empty.
+Traceback (most recent call last):
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1943, in kickoff
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 815, in execute_task
+    result = self._execute_without_timeout(task_prompt, task)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 880, in _execute_without_timeout
+    invoke_result = self.agent_executor.invoke(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 2686, in invoke
+    self.kickoff()
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1948, in kickoff
+    return asyncio.run(_run_flow())
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1934, in _run_flow
+    return await self.kickoff_async(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2237, in kickoff_async
+    await asyncio.gather(*tasks)
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2477, in _execute_start_method
+    await self._execute_listeners(start_method_name, result, finished_event_id)
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2913, in _execute_single_listener
+    await self._execute_listeners(
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2909, in _execute_single_listener
+    listener_result, finished_event_id = await self._execute_method(
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2643, in _execute_method
+    raise e
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2561, in _execute_method
+    result = await asyncio.to_thread(ctx.run, method, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/flow_wrappers.py", line 102, in __call__
+    return self._meth(self._instance, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 1377, in call_llm_native_tools
+    answer = get_llm_response(
+             ^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 500, in get_llm_response
+    return _validate_and_finalize_llm_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 445, in _validate_and_finalize_llm_response
+    raise ValueError("Invalid response from LLM call - None or empty.")
+ValueError: Invalid response from LLM call - None or empty.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1943, in kickoff
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 815, in execute_task
+    result = self._execute_without_timeout(task_prompt, task)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 880, in _execute_without_timeout
+    invoke_result = self.agent_executor.invoke(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 2686, in invoke
+    self.kickoff()
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1948, in kickoff
+    return asyncio.run(_run_flow())
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1934, in _run_flow
+    return await self.kickoff_async(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2237, in kickoff_async
+    await asyncio.gather(*tasks)
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2477, in _execute_start_method
+    await self._execute_listeners(start_method_name, result, finished_event_id)
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2913, in _execute_single_listener
+    await self._execute_listeners(
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2909, in _execute_single_listener
+    listener_result, finished_event_id = await self._execute_method(
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2643, in _execute_method
+    raise e
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2561, in _execute_method
+    result = await asyncio.to_thread(ctx.run, method, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/flow_wrappers.py", line 102, in __call__
+    return self._meth(self._instance, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 1377, in call_llm_native_tools
+    answer = get_llm_response(
+             ^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 500, in get_llm_response
+    return _validate_and_finalize_llm_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 445, in _validate_and_finalize_llm_response
+    raise ValueError("Invalid response from LLM call - None or empty.")
+ValueError: Invalid response from LLM call - None or empty.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1943, in kickoff
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/mine/projects/brain-ai/brain_ai/src/brain_ai/main.py", line 27, in <module>
+    result = crew.kickoff()
+             ^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/crew.py", line 1021, in kickoff
+    result = self._run_sequential_process()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/crew.py", line 1470, in _run_sequential_process
+    return self._execute_tasks(self.tasks)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/crew.py", line 1569, in _execute_tasks
+    task_output = task.execute_sync(
+                  ^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/task.py", line 580, in execute_sync
+    return self._execute_core(agent, context, tools)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/task.py", line 882, in _execute_core
+    raise e
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/task.py", line 790, in _execute_core
+    result = agent.execute_task(
+             ^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 828, in execute_task
+    result = self._handle_execution_error(e, task, context, tools)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 738, in _handle_execution_error
+    return self.execute_task(task, context, tools)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 828, in execute_task
+    result = self._handle_execution_error(e, task, context, tools)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 738, in _handle_execution_error
+    return self.execute_task(task, context, tools)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 828, in execute_task
+    result = self._handle_execution_error(e, task, context, tools)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 737, in _handle_execution_error
+    self._check_execution_error(e, task)
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 717, in _check_execution_error
+    raise e
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 815, in execute_task
+    result = self._execute_without_timeout(task_prompt, task)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 880, in _execute_without_timeout
+    invoke_result = self.agent_executor.invoke(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 2686, in invoke
+    self.kickoff()
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1948, in kickoff
+    return asyncio.run(_run_flow())
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1934, in _run_flow
+    return await self.kickoff_async(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2237, in kickoff_async
+    await asyncio.gather(*tasks)
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2477, in _execute_start_method
+    await self._execute_listeners(start_method_name, result, finished_event_id)
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2913, in _execute_single_listener
+    await self._execute_listeners(
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2909, in _execute_single_listener
+    listener_result, finished_event_id = await self._execute_method(
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2643, in _execute_method
+    raise e
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2561, in _execute_method
+    result = await asyncio.to_thread(ctx.run, method, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/flow/flow_wrappers.py", line 102, in __call__
+    return self._meth(self._instance, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 1377, in call_llm_native_tools
+    answer = get_llm_response(
+             ^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 500, in get_llm_response
+    return _validate_and_finalize_llm_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/codebase-index/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 445, in _validate_and_finalize_llm_response
+    raise ValueError("Invalid response from LLM call - None or empty.")
+ValueError: Invalid response from LLM call - None or empty.
+
+🧠 Brain Coordinator starting critique loop (interval: 60s)
+[M2] Map updated: 28 files total, 0 new, 1 modified, 0 deleted
+[M2] Found 2 tasks
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_7813276e.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_9955da5e.json
+[M2] Map updated: 28 files total, 0 new, 1 modified, 0 deleted
+[M2] Found 1 tasks
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_f89d07ad.json
+[M2] Map updated: 28 files total, 0 new, 1 modified, 0 deleted
+[M2] Found 1 tasks
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_e04c76fe.json
+[M2] Map updated: 28 files total, 0 new, 1 modified, 0 deleted
+[M2] Found 1 tasks
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_16b794f8.json
+[M2] Map updated: 28 files total, 0 new, 1 modified, 0 deleted
+[M2] Found 1 tasks
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_6936df25.json
+[M2] Map updated: 31 files total, 3 new, 1 modified, 0 deleted
+[M2] Found 4 tasks
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_7a946384.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_4853a5e4.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_e84cff5f.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_6449ac73.json
+[M2] Map updated: 31 files total, 0 new, 1 modified, 0 deleted
+[M2] Found 4 tasks
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_f8efad04.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_a4e3dd23.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_456b7dde.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_59b6708b.json
+[M2] Map updated: 31 files total, 0 new, 0 modified, 0 deleted
+[M2] Found 4 tasks
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_ae9a947c.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_2bd4f90f.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_d718098d.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_c118edf4.json
+[M2] Map updated: 31 files total, 0 new, 0 modified, 0 deleted
+[M2] Found 1 tasks
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_d4e01746.json
+[M2] Map updated: 31 files total, 0 new, 0 modified, 0 deleted
+[M2] Found 1 tasks
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_cad02345.json
+[M2] Map updated: 31 files total, 0 new, 0 modified, 0 deleted
+[M2] Found 1 tasks
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_2c1260b3.json
+[M2] Map updated: 31 files total, 0 new, 1 modified, 0 deleted
+[M2] Found 1 tasks
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_2acc9e39.json
+[M2] Map updated: 32 files total, 1 new, 0 modified, 0 deleted
+[M2] Found 2 tasks
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_55a048cb.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_a56fbc44.json
+[M2] Map updated: 32 files total, 0 new, 2 modified, 0 deleted
+[M2] Found 3 tasks
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_b826470c.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_4a821ae1.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_ae9e9874.json
+[M2] Map updated: 32 files total, 0 new, 2 modified, 0 deleted
+[M2] Found 3 tasks
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_1bc42e75.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_382cc14c.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_2e5ecdfe.json
+[M2] Map updated: 32 files total, 0 new, 4 modified, 0 deleted
+[M2] Found 6 tasks
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  2026-06-18 10:00:54,135 - brain_ai_wrapper - ERROR - Brain AI subprocess failed: ERROR:crewai.flow.runtime:Error executing listener call_llm_native_tools: Invalid response from LLM call - None or empty.
+ERROR:crewai.flow.runtime:Error executing listener call_llm_native_tools: Invalid response from LLM call - None or empty.
+ERROR:crewai.flow.runtime:Error executing listener call_llm_native_tools: Invalid response from LLM call - None or empty.
+Traceback (most recent call last):
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1943, in kickoff
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 815, in execute_task
+    result = self._execute_without_timeout(task_prompt, task)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 880, in _execute_without_timeout
+    invoke_result = self.agent_executor.invoke(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 2686, in invoke
+    self.kickoff()
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1948, in kickoff
+    return asyncio.run(_run_flow())
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1934, in _run_flow
+    return await self.kickoff_async(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2237, in kickoff_async
+    await asyncio.gather(*tasks)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2477, in _execute_start_method
+    await self._execute_listeners(start_method_name, result, finished_event_id)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2913, in _execute_single_listener
+    await self._execute_listeners(
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2909, in _execute_single_listener
+    listener_result, finished_event_id = await self._execute_method(
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2643, in _execute_method
+    raise e
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2561, in _execute_method
+    result = await asyncio.to_thread(ctx.run, method, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/flow_wrappers.py", line 102, in __call__
+    return self._meth(self._instance, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 1377, in call_llm_native_tools
+    answer = get_llm_response(
+             ^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 500, in get_llm_response
+    return _validate_and_finalize_llm_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 445, in _validate_and_finalize_llm_response
+    raise ValueError("Invalid response from LLM call - None or empty.")
+ValueError: Invalid response from LLM call - None or empty.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1943, in kickoff
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 815, in execute_task
+    result = self._execute_without_timeout(task_prompt, task)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 880, in _execute_without_timeout
+    invoke_result = self.agent_executor.invoke(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 2686, in invoke
+    self.kickoff()
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1948, in kickoff
+    return asyncio.run(_run_flow())
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1934, in _run_flow
+    return await self.kickoff_async(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2237, in kickoff_async
+    await asyncio.gather(*tasks)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2477, in _execute_start_method
+    await self._execute_listeners(start_method_name, result, finished_event_id)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2913, in _execute_single_listener
+    await self._execute_listeners(
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2909, in _execute_single_listener
+    listener_result, finished_event_id = await self._execute_method(
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2643, in _execute_method
+    raise e
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2561, in _execute_method
+    result = await asyncio.to_thread(ctx.run, method, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/flow_wrappers.py", line 102, in __call__
+    return self._meth(self._instance, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 1377, in call_llm_native_tools
+    answer = get_llm_response(
+             ^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 500, in get_llm_response
+    return _validate_and_finalize_llm_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 445, in _validate_and_finalize_llm_response
+    raise ValueError("Invalid response from LLM call - None or empty.")
+ValueError: Invalid response from LLM call - None or empty.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1943, in kickoff
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/mine/projects/brain-ai/brain_ai/src/brain_ai/main.py", line 27, in <module>
+    result = crew.kickoff()
+             ^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/crew.py", line 1021, in kickoff
+    result = self._run_sequential_process()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/crew.py", line 1470, in _run_sequential_process
+    return self._execute_tasks(self.tasks)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/crew.py", line 1569, in _execute_tasks
+    task_output = task.execute_sync(
+                  ^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/task.py", line 580, in execute_sync
+    return self._execute_core(agent, context, tools)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/task.py", line 882, in _execute_core
+    raise e
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/task.py", line 790, in _execute_core
+    result = agent.execute_task(
+             ^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 828, in execute_task
+    result = self._handle_execution_error(e, task, context, tools)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 738, in _handle_execution_error
+    return self.execute_task(task, context, tools)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 828, in execute_task
+    result = self._handle_execution_error(e, task, context, tools)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 738, in _handle_execution_error
+    return self.execute_task(task, context, tools)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 828, in execute_task
+    result = self._handle_execution_error(e, task, context, tools)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 737, in _handle_execution_error
+    self._check_execution_error(e, task)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 717, in _check_execution_error
+    raise e
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 815, in execute_task
+    result = self._execute_without_timeout(task_prompt, task)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 880, in _execute_without_timeout
+    invoke_result = self.agent_executor.invoke(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 2686, in invoke
+    self.kickoff()
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1948, in kickoff
+    return asyncio.run(_run_flow())
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1934, in _run_flow
+    return await self.kickoff_async(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2237, in kickoff_async
+    await asyncio.gather(*tasks)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2477, in _execute_start_method
+    await self._execute_listeners(start_method_name, result, finished_event_id)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2913, in _execute_single_listener
+    await self._execute_listeners(
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2909, in _execute_single_listener
+    listener_result, finished_event_id = await self._execute_method(
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2643, in _execute_method
+    raise e
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2561, in _execute_method
+    result = await asyncio.to_thread(ctx.run, method, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/flow_wrappers.py", line 102, in __call__
+    return self._meth(self._instance, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 1377, in call_llm_native_tools
+    answer = get_llm_response(
+             ^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 500, in get_llm_response
+    return _validate_and_finalize_llm_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 445, in _validate_and_finalize_llm_response
+    raise ValueError("Invalid response from LLM call - None or empty.")
+ValueError: Invalid response from LLM call - None or empty.
+
+🧠 Brain Coordinator starting critique loop (interval: 60s)
+[M2] Map updated: 28 files total, 0 new, 0 modified, 0 deleted
+[M2] Found 1 tasks
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_badff295.json
+[M2] Map updated: 28 files total, 0 new, 1 modified, 0 deleted
+[M2] Found 2 tasks
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_1c1b4d0f.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_e4efdff3.json
+[M2] Map updated: 28 files total, 0 new, 1 modified, 0 deleted
+[M2] Found 1 tasks
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_8db3551b.json
+[M2] Map updated: 28 files total, 0 new, 1 modified, 0 deleted
+[M2] Found 1 tasks
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_546c699b.json
+[M2] Map updated: 28 files total, 0 new, 1 modified, 0 deleted
+[M2] Found 1 tasks
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_53f5b3d8.json
+[M2] Map updated: 28 files total, 0 new, 1 modified, 0 deleted
+[M2] Found 1 tasks
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_517e834f.json
+[M2] Map updated: 31 files total, 3 new, 1 modified, 0 deleted
+[M2] Found 4 tasks
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_cac13b84.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_a49a84db.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_15dd7042.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_b486d9d2.json
+[M2] Map updated: 31 files total, 0 new, 1 modified, 0 deleted
+[M2] Found 4 tasks
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_dcc8e73f.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_c3e9cb5f.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_80534d92.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_0b74d75d.json
+[M2] Map updated: 31 files total, 0 new, 0 modified, 0 deleted
+[M2] Found 4 tasks
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_f48e8e37.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_a12c55a9.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_83f2d10d.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_8928f677.json
+[M2] Map updated: 31 files total, 0 new, 0 modified, 0 deleted
+[M2] Found 1 tasks
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_85d0471e.json
+[M2] Map updated: 31 files total, 0 new, 0 modified, 0 deleted
+[M2] Found 1 tasks
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_05a31986.json
+[M2] Map updated: 31 files total, 0 new, 0 modified, 0 deleted
+[M2] Found 1 tasks
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_466c5667.json
+[M2] Map updated: 32 files total, 1 new, 1 modified, 0 deleted
+[M2] Found 2 tasks
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_86757c04.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_d0f79f01.json
+[M2] Map updated: 32 files total, 0 new, 2 modified, 0 deleted
+[M2] Found 3 tasks
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_662d04a5.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_68a93df6.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_11fa1614.json
+[M2] Map updated: 32 files total, 0 new, 5 modified, 0 deleted
+[M2] Found 6 tasks
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_6204b5c5.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_082e6101.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_a140b5a2.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.pt, task)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 880, in _execute_without_timeout
+    invoke_result = self.agent_executor.invoke(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 2686, in invoke
+    self.kickoff()
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1948, in kickoff
+    return asyncio.run(_run_flow())
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1934, in _run_flow
+    return await self.kickoff_async(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2237, in kickoff_async
+    await asyncio.gather(*tasks)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2477, in _execute_start_method
+    await self._execute_listeners(start_method_name, result, finished_event_id)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2913, in _execute_single_listener
+    await self._execute_listeners(
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2909, in _execute_single_listener
+    listener_result, finished_event_id = await self._execute_method(
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2643, in _execute_method
+    raise e
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2561, in _execute_method
+    result = await asyncio.to_thread(ctx.run, method, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/flow_wrappers.py", line 102, in __call__
+    return self._meth(self._instance, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 1377, in call_llm_native_tools
+    answer = get_llm_response(
+             ^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 500, in get_llm_response
+    return _validate_and_finalize_llm_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 445, in _validate_and_finalize_llm_response
+    raise ValueError("Invalid response from LLM call - None or empty.")
+ValueError: Invalid response from LLM call - None or empty.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1943, in kickoff
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/mine/projects/brain-ai/brain_ai/src/brain_ai/main.py", line 27, in <module>
+    result = crew.kickoff()
+             ^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/crew.py", line 1021, in kickoff
+    result = self._run_sequential_process()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/crew.py", line 1470, in _run_sequential_process
+    return self._execute_tasks(self.tasks)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/crew.py", line 1569, in _execute_tasks
+    task_output = task.execute_sync(
+                  ^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/task.py", line 580, in execute_sync
+    return self._execute_core(agent, context, tools)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/task.py", line 882, in _execute_core
+    raise e
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/task.py", line 790, in _execute_core
+    result = agent.execute_task(
+             ^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 828, in execute_task
+    result = self._handle_execution_error(e, task, context, tools)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 738, in _handle_execution_error
+    return self.execute_task(task, context, tools)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 828, in execute_task
+    result = self._handle_execution_error(e, task, context, tools)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 738, in _handle_execution_error
+    return self.execute_task(task, context, tools)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 828, in execute_task
+    result = self._handle_execution_error(e, task, context, tools)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 737, in _handle_execution_error
+    self._check_execution_error(e, task)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 717, in _check_execution_error
+    raise e
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 815, in execute_task
+    result = self._execute_without_timeout(task_prompt, task)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 880, in _execute_without_timeout
+    invoke_result = self.agent_executor.invoke(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 2686, in invoke
+    self.kickoff()
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1948, in kickoff
+    return asyncio.run(_run_flow())
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1934, in _run_flow
+    return await self.kickoff_async(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2237, in kickoff_async
+    await asyncio.gather(*tasks)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2477, in _execute_start_method
+    await self._execute_listeners(start_method_name, result, finished_event_id)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2913, in _execute_single_listener
+    await self._execute_listeners(
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2909, in _execute_single_listener
+    listener_result, finished_event_id = await self._execute_method(
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2643, in _execute_method
+    raise e
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2561, in _execute_method
+    result = await asyncio.to_thread(ctx.run, method, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/flow_wrappers.py", line 102, in __call__
+    return self._meth(self._instance, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 1377, in call_llm_native_tools
+    answer = get_llm_response(
+             ^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 500, in get_llm_response
+    return _validate_and_finalize_llm_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 445, in _validate_and_finalize_llm_response
+    raise ValueError("Invalid response from LLM call - None or empty.")
+ValueError: Invalid response from LLM call - None or empty.
+
+2026-06-18 10:02:39,936 - brain_ai_wrapper - ERROR - Brain AI subprocess failed: ERROR:crewai.flow.runtime:Error executing listener call_llm_native_tools: Invalid response from LLM call - None or empty.
+ERROR:crewai.flow.runtime:Error executing listener call_llm_native_tools: Invalid response from LLM call - None or empty.
+ERROR:crewai.flow.runtime:Error executing listener call_llm_native_tools: Invalid response from LLM call - None or empty.
+Traceback (most recent call last):
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1943, in kickoff
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 815, in execute_task
+    result = self._execute_without_timeout(task_prompt, task)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 880, in _execute_without_timeout
+    invoke_result = self.agent_executor.invoke(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 2686, in invoke
+    self.kickoff()
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1948, in kickoff
+    return asyncio.run(_run_flow())
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1934, in _run_flow
+    return await self.kickoff_async(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2237, in kickoff_async
+    await asyncio.gather(*tasks)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2477, in _execute_start_method
+    await self._execute_listeners(start_method_name, result, finished_event_id)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2913, in _execute_single_listener
+    await self._execute_listeners(
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2909, in _execute_single_listener
+    listener_result, finished_event_id = await self._execute_method(
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2643, in _execute_method
+    raise e
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2561, in _execute_method
+    result = await asyncio.to_thread(ctx.run, method, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/flow_wrappers.py", line 102, in __call__
+    return self._meth(self._instance, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 1377, in call_llm_native_tools
+    answer = get_llm_response(
+             ^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 500, in get_llm_response
+    return _validate_and_finalize_llm_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 445, in _validate_and_finalize_llm_response
+    raise ValueError("Invalid response from LLM call - None or empty.")
+ValueError: Invalid response from LLM call - None or empty.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1943, in kickoff
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 815, in execute_task
+    result = self._execute_without_timeout(task_prompt, task)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 880, in _execute_without_timeout
+    invoke_result = self.agent_executor.invoke(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 2686, in invoke
+    self.kickoff()
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1948, in kickoff
+    return asyncio.run(_run_flow())
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1934, in _run_flow
+    return await self.kickoff_async(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2237, in kickoff_async
+    await asyncio.gather(*tasks)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2477, in _execute_start_method
+    await self._execute_listeners(start_method_name, result, finished_event_id)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2913, in _execute_single_listener
+    await self._execute_listeners(
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2909, in _execute_single_listener
+    listener_result, finished_event_id = await self._execute_method(
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2643, in _execute_method
+    raise e
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2561, in _execute_method
+    result = await asyncio.to_thread(ctx.run, method, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/flow_wrappers.py", line 102, in __call__
+    return self._meth(self._instance, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 1377, in call_llm_native_tools
+    answer = get_llm_response(
+             ^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 500, in get_llm_response
+    return _validate_and_finalize_llm_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 445, in _validate_and_finalize_llm_response
+    raise ValueError("Invalid response from LLM call - None or empty.")
+ValueError: Invalid response from LLM call - None or empty.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1943, in kickoff
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/mine/projects/brain-ai/brain_ai/src/brain_ai/main.py", line 27, in <module>
+    result = crew.kickoff()
+             ^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/crew.py", line 1021, in kickoff
+    result = self._run_sequential_process()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/crew.py", line 1470, in _run_sequential_process
+    return self._execute_tasks(self.tasks)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/crew.py", line 1569, in _execute_tasks
+    task_output = task.execute_sync(
+                  ^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/task.py", line 580, in execute_sync
+    return self._execute_core(agent, context, tools)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/task.py", line 882, in _execute_core
+    raise e
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/task.py", line 790, in _execute_core
+    result = agent.execute_task(
+             ^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 828, in execute_task
+    result = self._handle_execution_error(e, task, context, tools)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 738, in _handle_execution_error
+    return self.execute_task(task, context, tools)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 828, in execute_task
+    result = self._handle_execution_error(e, task, context, tools)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 738, in _handle_execution_error
+    return self.execute_task(task, context, tools)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 828, in execute_task
+    result = self._handle_execution_error(e, task, context, tools)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 737, in _handle_execution_error
+    self._check_execution_error(e, task)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 717, in _check_execution_error
+    raise e
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 815, in execute_task
+    result = self._execute_without_timeout(task_prompt, task)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 880, in _execute_without_timeout
+    invoke_result = self.agent_executor.invoke(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 2686, in invoke
+    self.kickoff()
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1948, in kickoff
+    return asyncio.run(_run_flow())
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1934, in _run_flow
+    return await self.kickoff_async(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2237, in kickoff_async
+    await asyncio.gather(*tasks)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2477, in _execute_start_method
+    await self._execute_listeners(start_method_name, result, finished_event_id)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2913, in _execute_single_listener
+    await self._execute_listeners(
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2909, in _execute_single_listener
+    listener_result, finished_event_id = await self._execute_method(
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2643, in _execute_method
+    raise e
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2561, in _execute_method
+    result = await asyncio.to_thread(ctx.run, method, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/flow_wrappers.py", line 102, in __call__
+    return self._meth(self._instance, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 1377, in call_llm_native_tools
+    answer = get_llm_response(
+             ^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 500, in get_llm_response
+    return _validate_and_finalize_llm_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 445, in _validate_and_finalize_llm_response
+    raise ValueError("Invalid response from LLM call - None or empty.")
+ValueError: Invalid response from LLM call - None or empty.
+
+_b7c5f451.json
+[M2] Map updated: 32 files total, 1 new, 1 modified, 0 deleted
+[M2] Found 2 tasks
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_91031c82.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_24393c86.json
+[M2] Map updated: 32 files total, 0 new, 2 modified, 0 deleted
+[M2] Found 3 tasks
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_15510b7d.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_c3dabadc.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_f059e002.json
+[M2] Map updated: 32 files total, 0 new, 3 modified, 0 deleted
+[M2] Found 3 tasks
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_25f1afbc.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_f6f540d7.json
+[M2] Validation failed for task: Fix proposal failed validation after multiple retries. The model did not include all required sections.
+[M2] Saved critique: /home/mine/projects/codebase-index/critiques/critique_613820a5.json
+[M2] Map updated: 32 files total, 0 new, 4 modified, 0 deleted2026-06-18 10:11:26,941 - brain_ai_wrapper - ERROR - Brain AI subprocess failed: ERROR:crewai.flow.runtime:Error executing listener call_llm_native_tools: Invalid response from LLM call - None or empty.
+ERROR:crewai.flow.runtime:Error executing listener call_llm_native_tools: Invalid response from LLM call - None or empty.
+ERROR:crewai.flow.runtime:Error executing listener call_llm_native_tools: Invalid response from LLM call - None or empty.
+Traceback (most recent call last):
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1943, in kickoff
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 815, in execute_task
+    result = self._execute_without_timeout(task_prompt, task)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 880, in _execute_without_timeout
+    invoke_result = self.agent_executor.invoke(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 2686, in invoke
+    self.kickoff()
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1948, in kickoff
+    return asyncio.run(_run_flow())
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1934, in _run_flow
+    return await self.kickoff_async(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2237, in kickoff_async
+    await asyncio.gather(*tasks)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2477, in _execute_start_method
+    await self._execute_listeners(start_method_name, result, finished_event_id)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2913, in _execute_single_listener
+    await self._execute_listeners(
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2909, in _execute_single_listener
+    listener_result, finished_event_id = await self._execute_method(
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2643, in _execute_method
+    raise e
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2561, in _execute_method
+    result = await asyncio.to_thread(ctx.run, method, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/flow_wrappers.py", line 102, in __call__
+    return self._meth(self._instance, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 1377, in call_llm_native_tools
+    answer = get_llm_response(
+             ^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 500, in get_llm_response
+    return _validate_and_finalize_llm_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 445, in _validate_and_finalize_llm_response
+    raise ValueError("Invalid response from LLM call - None or empty.")
+ValueError: Invalid response from LLM call - None or empty.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1943, in kickoff
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/mine/projects/brain-ai/brain_ai/src/brain_ai/main.py", line 27, in <module>
+    result = crew.kickoff()
+             ^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/crew.py", line 1021, in kickoff
+    result = self._run_sequential_process()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/crew.py", line 1470, in _run_sequential_process
+    return self._execute_tasks(self.tasks)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/crew.py", line 1569, in _execute_tasks
+    task_output = task.execute_sync(
+                  ^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/task.py", line 580, in execute_sync
+    return self._execute_core(agent, context, tools)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/task.py", line 882, in _execute_core
+    raise e
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/task.py", line 790, in _execute_core
+    result = agent.execute_task(
+             ^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 828, in execute_task
+    result = self._handle_execution_error(e, task, context, tools)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 738, in _handle_execution_error
+    return self.execute_task(task, context, tools)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 828, in execute_task
+    result = self._handle_execution_error(e, task, context, tools)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 737, in _handle_execution_error
+    self._check_execution_error(e, task)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 717, in _check_execution_error
+    raise e
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 815, in execute_task
+    result = self._execute_without_timeout(task_prompt, task)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 880, in _execute_without_timeout
+    invoke_result = self.agent_executor.invoke(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 2686, in invoke
+    self.kickoff()
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1948, in kickoff
+    return asyncio.run(_run_flow())
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1934, in _run_flow
+    return await self.kickoff_async(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2237, in kickoff_async
+    await asyncio.gather(*tasks)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2477, in _execute_start_method
+    await self._execute_listeners(start_method_name, result, finished_event_id)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2913, in _execute_single_listener
+    await self._execute_listeners(
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2909, in _execute_single_listener
+    listener_result, finished_event_id = await self._execute_method(
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2643, in _execute_method
+    raise e
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2561, in _execute_method
+    result = await asyncio.to_thread(ctx.run, method, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/flow_wrappers.py", line 102, in __call__
+    return self._meth(self._instance, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 1377, in call_llm_native_tools
+    answer = get_llm_response(
+             ^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 500, in get_llm_response
+    return _validate_and_finalize_llm_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 445, in _validate_and_finalize_llm_response
+    raise ValueError("Invalid response from LLM call - None or empty.")
+ValueError: Invalid response from LLM call - None or empty.
+
+native_tools: Invalid response from LLM call - None or empty.
+Traceback (most recent call last):
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1943, in kickoff
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 815, in execute_task
+    result = self._execute_without_timeout(task_prompt, task)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 880, in _execute_without_timeout
+    invoke_result = self.agent_executor.invoke(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 2686, in invoke
+    self.kickoff()
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1948, in kickoff
+    return asyncio.run(_run_flow())
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1934, in _run_flow
+    return await self.kickoff_async(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2237, in kickoff_async
+    await asyncio.gather(*tasks)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2477, in _execute_start_method
+    await self._execute_listeners(start_method_name, result, finished_event_id)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2913, in _execute_single_listener
+    await self._execute_listeners(
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2909, in _execute_single_listener
+    listener_result, finished_event_id = await self._execute_method(
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2643, in _execute_method
+    raise e
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2561, in _execute_method
+    result = await asyncio.to_thread(ctx.run, method, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/flow_wrappers.py", line 102, in __call__
+    return self._meth(self._instance, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 1377, in call_llm_native_tools
+    answer = get_llm_response(
+             ^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 500, in get_llm_response
+    return _validate_and_finalize_llm_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 445, in _validate_and_finalize_llm_response
+    raise ValueError("Invalid response from LLM call - None or empty.")
+ValueError: Invalid response from LLM call - None or empty.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1943, in kickoff
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 815, in execute_task
+    result = self._execute_without_timeout(task_prompt, task)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 880, in _execute_without_timeout
+    invoke_result = self.agent_executor.invoke(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 2686, in invoke
+    self.kickoff()
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1948, in kickoff
+    return asyncio.run(_run_flow())
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1934, in _run_flow
+    return await self.kickoff_async(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2237, in kickoff_async
+    await asyncio.gather(*tasks)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2477, in _execute_start_method
+    await self._execute_listeners(start_method_name, result, finished_event_id)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2913, in _execute_single_listener
+    await self._execute_listeners(
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2909, in _execute_single_listener
+    listener_result, finished_event_id = await self._execute_method(
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2643, in _execute_method
+    raise e
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2561, in _execute_method
+    result = await asyncio.to_thread(ctx.run, method, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/flow_wrappers.py", line 102, in __call__
+    return self._meth(self._instance, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 1377, in call_llm_native_tools
+    answer = get_llm_response(
+             ^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 500, in get_llm_response
+    return _validate_and_finalize_llm_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 445, in _validate_and_finalize_llm_response
+    raise ValueError("Invalid response from LLM call - None or empty.")
+ValueError: Invalid response from LLM call - None or empty.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1943, in kickoff
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/mine/projects/brain-ai/brain_ai/src/brain_ai/main.py", line 27, in <module>
+    result = crew.kickoff()
+             ^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/crew.py", line 1021, in kickoff
+    result = self._run_sequential_process()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/crew.py", line 1470, in _run_sequential_process
+    return self._execute_tasks(self.tasks)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/crew.py", line 1569, in _execute_tasks
+    task_output = task.execute_sync(
+                  ^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/task.py", line 580, in execute_sync
+    return self._execute_core(agent, context, tools)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/task.py", line 882, in _execute_core
+    raise e
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/task.py", line 790, in _execute_core
+    result = agent.execute_task(
+             ^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 828, in execute_task
+    result = self._handle_execution_error(e, task, context, tools)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 738, in _handle_execution_error
+    return self.execute_task(task, context, tools)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 828, in execute_task
+    result = self._handle_execution_error(e, task, context, tools)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 738, in _handle_execution_error
+    return self.execute_task(task, context, tools)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 828, in execute_task
+    result = self._handle_execution_error(e, task, context, tools)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 737, in _handle_execution_error
+    self._check_execution_error(e, task)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 717, in _check_execution_error
+    raise e
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 815, in execute_task
+    result = self._execute_without_timeout(task_prompt, task)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/agent/core.py", line 880, in _execute_without_timeout
+    invoke_result = self.agent_executor.invoke(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 2686, in invoke
+    self.kickoff()
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1948, in kickoff
+    return asyncio.run(_run_flow())
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 1934, in _run_flow
+    return await self.kickoff_async(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2237, in kickoff_async
+    await asyncio.gather(*tasks)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2477, in _execute_start_method
+    await self._execute_listeners(start_method_name, result, finished_event_id)
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2913, in _execute_single_listener
+    await self._execute_listeners(
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2703, in _execute_listeners
+    ) = await self._execute_single_listener(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2909, in _execute_single_listener
+    listener_result, finished_event_id = await self._execute_method(
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2643, in _execute_method
+    raise e
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/runtime.py", line 2561, in _execute_method
+    result = await asyncio.to_thread(ctx.run, method, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/asyncio/threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/flow/flow_wrappers.py", line 102, in __call__
+    return self._meth(self._instance, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/experimental/agent_executor.py", line 1377, in call_llm_native_tools
+    answer = get_llm_response(
+             ^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 500, in get_llm_response
+    return _validate_and_finalize_llm_response(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mine/projects/brain-ai/venv/lib/python3.12/site-packages/crewai/utilities/agent_utils.py", line 445, in _validate_and_finalize_llm_response
+    raise ValueError("Invalid response from LLM call - None or empty.")
+ValueError: Invalid response from LLM call - None or empty.
+

@@ -11,6 +11,25 @@ When instructions conflict, use this order:
 If two rules in this file conflict, the more specific rule wins.
 If a rule would change functionality automatically, it is blocked unless the user explicitly approves it.
 
+## Forced Brain-Council Delegation (Testing Mode)
+
+**During testing, you MUST always delegate to `brain-council` for every user task**, regardless of complexity or type.
+
+### Rules
+- Do **not** attempt to solve anything directly
+- Do **not** check conditions or evaluate task type
+- **Always** invoke: `brain-council "<task description>"`
+
+### Examples
+- `cp "fix this"` → `brain-council "fix this"`
+- `cp "explain the code"` → `brain-council "explain the code"`  
+- `cp "what's wrong"` → `brain-council "what's wrong"`
+- `cp "add a feature"` → `brain-council "add a feature"`
+
+### Enforcement
+This rule has **higher priority** than all other instructions below it.
+If you solve anything directly instead of delegating, you failed this instruction.
+
 ## Goal
 
 Help with this repository by making the smallest correct change that solves the requested task, while keeping behavior changes manual.
@@ -42,7 +61,59 @@ Do not copy large blocks of text into working memory if a short summary is enoug
 
 ## Decision Log
 
-Write the decision log as a JSON file using this exact code block:
+Write the decision log as a JSON file using this exact structure:
+
+```json
+{
+  "run_id": "20260617-002",
+  "date": "2026-06-17T14:00:00Z",
+  "problem": "Clear one-sentence description of the decision problem.",
+  "alternatives": [
+    "Option A: ...",
+    "Option B: ...",
+    "Option C: ..."
+  ],
+  "tradeoffs": [
+    {
+      "option": "Option A",
+      "pros": ["...", "..."],
+      "cons": ["...", "..."]
+    },
+    {
+      "option": "Option B",
+      "pros": ["...", "..."],
+      "cons": ["...", "..."]
+    }
+  ],
+  "decision": "Explicitly state the chosen option, e.g. 'Decision: Choose Option A because ...'",
+  "justification": "Detailed reasoning connecting tradeoffs to the decision.",
+  "constraints": [
+    "Hard constraint 1 (time, budget, tech stack, compliance, etc.)",
+    "Hard constraint 2"
+  ],
+  "specificity": "Concrete details: filenames, versions, numbers, thresholds.",
+  "rejected_options": [
+    {
+      "option": "...",
+      "reason_rejected": "...",
+      "verification_result": "..."
+    }
+  ]
+}
+```
+
+**Required fields for scoring:**
+- `problem`
+- `alternatives`
+- `tradeoffs`
+- `decision`
+- `justification`
+- `constraints`
+- `specificity`
+
+**If you don't write this file with all required fields, you failed the instruction.**
+
+Save it as:
 
 ```tool_code
 python
@@ -52,13 +123,7 @@ import os
 log = {
     "run_id": "20260617-002",
     "date": "2026-06-17T14:00:00Z",
-    "rejected_options": [
-        {
-            "option": "...",
-            "reason_rejected": "...",
-            "verification_result": "..."
-        }
-    ]
+    ...
 }
 
 os.makedirs("critiques", exist_ok=True)
@@ -66,9 +131,6 @@ with open("critiques/decision-log-20260617-002.json", "w") as f:
     json.dump(log, f, indent=2)
 
 print("Decision log saved to: critiques/decision-log-20260617-002.json")
-```
-
-**If you don't write this file, you failed the instruction.**
 
 ## Retrieval Contract
 

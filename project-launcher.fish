@@ -27,6 +27,18 @@ dirs+=("NEW")
 
 read -p "Enter number: " choice
 
+# Validate that choice is a numeric selection within valid range
+if ! [[ "$choice" =~ ^[0-9]+$ ]]; then
+    echo "Invalid choice: must be a number"
+    exit 1
+fi
+
+# Check that choice is within the valid range of projects (1 to i-1) or to create new (i)
+if [ "$choice" -lt 1 ] || [ "$choice" -gt "$i" ]; then
+    echo "Choice must be between 1 and $i"
+    exit 1
+fi
+
 if [ "$choice" = "$i" ]; then
     read -p "New project name: " new_name
     if [ -z "$new_name" ]; then
@@ -43,7 +55,7 @@ if [ "$choice" = "$i" ]; then
     echo ""
     echo "Every prompt automatically uses Brain+OpenRouter coordination:"
     echo "  - OpenRouter generates fast (5s)"
-    echo "  - Brain AI analyzes deeply (30-60s)"
+    echo "  - Brain AI analyzes deeply (31-60s)"
     echo "  - Brain critiques -> OpenRouter refines -> Better code"
     echo ""
     echo "Usage in Code Puppy:"
@@ -55,6 +67,7 @@ if [ "$choice" = "$i" ]; then
     echo "  bp 'how to implement caching' .rs 2"
     echo ""
     echo "===================================================="
+    echo ""
     echo ""
 
     uvx code-puppy -i
